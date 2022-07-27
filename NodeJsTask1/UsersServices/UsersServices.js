@@ -1,4 +1,3 @@
-import { json } from 'express';
 import fetch from 'node-fetch';
 
 async function getUsers(count) {
