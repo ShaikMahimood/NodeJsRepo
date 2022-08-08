@@ -6,7 +6,7 @@ const config = {
   requireTLS: true,
   auth: {
     user: "mahshaik3@gmail.com",
-    pass: "tyzperabwdjeljqx",
+    pass: "gpjuwtquhjrhcqfk",
   },
 };
 

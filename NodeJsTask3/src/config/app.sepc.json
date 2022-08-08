@@ -1,0 +1,13 @@
+{
+    "rectype":{
+        "organization": "organization",
+        "patient": "patient",
+        "sequence": "sequence",
+        "file": "file"
+    },
+    "aws":{
+        "ACCESS_KEY_ID": "AKIAQATBCZB5JMXVCIV6",
+        "SECRET_ACCESS_KEY": "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",
+        "Bucket_Name": "mys3files"
+    }
+}

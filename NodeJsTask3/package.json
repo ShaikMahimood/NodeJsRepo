@@ -1,0 +1,25 @@
+{
+  "name": "nodejstask3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/abort-controller": "^3.127.0",
+    "@aws-sdk/client-s3": "^3.142.0",
+    "aws-sdk": "^2.1188.0",
+    "connect-multiparty": "^2.2.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "formidable": "^2.0.1",
+    "mongodb": "^4.8.1",
+    "multer-s3": "^3.0.1",
+    "nodemon": "^2.0.19",
+    "validate": "^5.2.0"
+  }
+}

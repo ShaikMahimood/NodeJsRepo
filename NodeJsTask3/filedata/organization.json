@@ -1,0 +1,43 @@
+[{
+  "_id": {
+    "$oid": "62eb89c40044cddaaaf9215e"
+  },
+  "rectype": "organization",
+  "code": "001",
+  "firstname": "arjun",
+  "lastname": "sai",
+  "gender": "male",
+  "dob": "01/01/1997",
+  "language": "telugu",
+  "type": "lab",
+  "status": "inactive",
+  "created": {
+    "$date": {
+      "$numberLong": "1659603395195"
+    }
+  },
+  "id": {
+    "$numberLong": "202208010000002"
+  }
+},{
+  "_id": {
+    "$oid": "62ecb072cef1eb0a9b41a7d9"
+  },
+  "rectype": "organization",
+  "code": "002",
+  "firstname": "ravi",
+  "lastname": "kumar",
+  "gender": "male",
+  "dob": "01/01/1997",
+  "language": "hindi",
+  "type": "lab",
+  "status": "active",
+  "created": {
+    "$date": {
+      "$numberLong": "1659678833844"
+    }
+  },
+  "id": {
+    "$numberLong": "202208010000013"
+  }
+}]

@@ -6,7 +6,7 @@ const { emailValidation } = require("../middleware/validator.js");
 router.post("/sendemail", emailValidation, async (req, res) => {
   try {
     const mailInfo = await emailSend(req.body);
-    console.log(mailInfo);
+   // console.log(mailInfo);
     res.render("success");
   } catch {
     // passing body parameters to emailSend function to send mail from nodemailer
