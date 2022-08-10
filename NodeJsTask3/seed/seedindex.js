@@ -1,7 +1,7 @@
-const { addRecord } = require("./src/db/mongodb")
+const { createRecord } = require('../src/db/mongodb');
 const patientdata = [{
 
-        "rectype": "Patient",
+        "rectype": "patient",
         "firstname": "budhuru",
         "lastname": "reddy",
         "nickname": "honey",
@@ -12,7 +12,7 @@ const patientdata = [{
     },
     {
 
-        "rectype": "Patient",
+        "rectype": "patient",
         "firstname": "ram",
         "lastname": "reddy",
         "nickname": "honey",
@@ -40,11 +40,11 @@ const organization = [{
 ]
 async function addpatient() {
     for (i = 0; i < patientdata.length; i++)
-        await addRecord(patientdata[i])
+        await createRecord(patientdata[i])
 }
 async function addorganization() {
     for (i = 0; i < organization.length; i++)
-        await addRecord(organization[i])
+        await createRecord(organization[i])
 }
 addpatient();
 addorganization();

@@ -1,0 +1,12 @@
+[{
+  "_id": {
+    "$oid": "62f3935848c1a1f5960898d6"
+  },
+  "code": "00A1",
+  "name": "innominds",
+  "type": "backoffice",
+  "status": "active",
+  "rectype": "organization",
+  "created": "2022-08-10T11:15:35.463Z",
+  "id": "20220801000000"
+}]

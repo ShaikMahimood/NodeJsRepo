@@ -1,8 +1,9 @@
 const Schema = require("validate");
+const config = require('../config/app.sepc.json');
+
 const officeSchema = new Schema({
   rectype: {
     type: String,
-    required: true,
   },
   code: {
     type: String,
@@ -10,17 +11,17 @@ const officeSchema = new Schema({
   },
   type: {
     type: String,
-    enum: ["backoffice", "clinic", "custom", "lab", "office", "carecenter"],
+    enum: config.organization.type,
     required: true,
   },
   status: {
     type: String,
-    enum: ["active", "inactive"],
+    enum: config.common.status,
     required: true,
   },
 
   inactivereason: {
-    type: String
+    type: String,
   },
 
   created: {
@@ -44,15 +45,15 @@ function Validation(req, res, next) {
     created,
     date,
   };
-
-  const error = officeSchema.validate(responsedata);
-  console.log(error);
-  if (error == null || error.length === 0) {
-    //   console.log(responsedata);
-    next();
+  //check validate conditions and send next() otherwise send error
+  let errors = officeSchema.validate(responsedata);
+  if (errors.length) {
+    errors = errors.map((eRec) => {
+      return { path: eRec.path, message: eRec.message };
+    });
+    res.send(errors);
   } else {
-    console.log("error");
-    res.send("error");
+    next();
   }
 }
 

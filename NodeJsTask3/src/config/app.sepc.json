@@ -1,13 +1,54 @@
 {
-    "rectype":{
-        "organization": "organization",
-        "patient": "patient",
-        "sequence": "sequence",
-        "file": "file"
+    "patient": {
+        "rectype": "patient",
+        "language": [
+            "english",
+            "urdu",
+            "hindi",
+            "telugu",
+            "japan"
+        ],
+        "gender": [
+            "male",
+            "female",
+            "others"
+        ]
     },
-    "aws":{
+    "organization": {
+        "rectype": "organization",
+        "type": [
+            "backoffice",
+            "clinic",
+            "custom",
+            "lab",
+            "office",
+            "carecenter"
+        ]
+    },
+    "file": {
+        "rectype": "file",
+        "status": {
+            "completed":"completed",
+            "pending":"pending",
+            "error":"error"
+        }
+    },
+    "sequence": {
+        "rectype": "sequence"
+    },
+    "common": {
+        "status": [
+            "active",
+            "inactive"
+        ]
+    },
+    "aws": {
         "ACCESS_KEY_ID": "AKIAQATBCZB5JMXVCIV6",
         "SECRET_ACCESS_KEY": "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",
         "Bucket_Name": "mys3files"
+    },
+    "db": {
+        "dbname": "Task3",
+        "mongodburl": "mongodb+srv://new_user:SlTh0ZtXzWxORlXu@cluster0.apboi.mongodb.net/Task3?retryWrites=true&w=majority"
     }
 }

@@ -1,21 +1,22 @@
 const Schema = require("validate");
+const config = require('../config/app.sepc.json');
 
 const patient = new Schema({
-  rectype: { type: String, required: true }, // patient
-  orgid: { type: Number},
+  rectype: { type: String}, // patient
+  orgid: { type: String},
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   nickname: { type: String},
-  gender: { type: String, enum: ["male", "female", "others"], required: true },
+  gender: { type: String, enum: config.patient.gender, required: true },
   dob: { type: String, required: true },
   mrn: { type: String },
   ssn: { type: String },
   language: {
     type: String,
-    enum: ["english", "urdu", "hindi", "telugu", "japan"], 
+    enum: config.patient.language, 
     required: true 
   },
-  status: { type: String, enum: ["active", "inactive"], required: true  },
+  status: { type: String, enum: config.common.status },
   inactivereason: { type: String},
   dateinactivate: { type: String },
   created: { type: Date },
@@ -56,16 +57,16 @@ function Validation(req, res, next) {
     dateinactivate,
     data,
   };
-  req.data = patientData;
-  //req.data = patientData.created;
+
   //check validate conditions and send next() otherwise send error
-  const error = patient.validate(patientData);
-  console.log(error);
-  if (error == null || error.length === 0) {
-    next();
+  let errors = patient.validate(patientData);
+  if (errors.length) {
+    errors = errors.map((eRec) => {
+      return { path: eRec.path, message: eRec.message };
+    });
+    res.send(errors);
   } else {
-    console.log("error");
-    res.send("error");
+    next();
   }
 }
 
