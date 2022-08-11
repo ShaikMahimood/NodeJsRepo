@@ -28,9 +28,9 @@
     "file": {
         "rectype": "file",
         "status": {
-            "completed":"completed",
-            "pending":"pending",
-            "error":"error"
+            "completed": "completed",
+            "pending": "pending",
+            "error": "error"
         }
     },
     "sequence": {
@@ -41,6 +41,22 @@
             "active",
             "inactive"
         ]
+    },
+    "contact": {
+        "type": {
+            "address": "address",
+            "email": "email",
+            "fax": "fax",
+            "phone": "phone"
+        },
+        "subtype": {
+            "home": "home",
+            "work": "work",
+            "mobile": "mobile",
+            "personal": "personal",
+            "primary": "primary",
+            "secondary": "secondary"
+        }
     },
     "aws": {
         "ACCESS_KEY_ID": "AKIAQATBCZB5JMXVCIV6",

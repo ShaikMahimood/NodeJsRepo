@@ -1,0 +1,12 @@
+[{
+  "_id": {
+    "$oid": "62f49777e17612c42f7a3dbe"
+  },
+  "rectype": "organization",
+  "code": "CH",
+  "name": "sri sai",
+  "type": "clinic",
+  "status": "active",
+  "created": "2022-08-11T05:45:26.765Z",
+  "id": "20220801000013"
+}]

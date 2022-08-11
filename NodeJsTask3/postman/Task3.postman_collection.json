@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "ed882a04-6d29-40f8-a7a9-6bf60d78834c",
+		"name": "Task3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18425557"
+	},
+	"item": [
+		{
+			"name": "patient",
+			"item": [
+				{
+					"name": "file",
+					"item": [
+						{
+							"name": "add patient file",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/mahshaik/source/repos/NodeJsRepo/NodeJsTask3/filedata/patient_20220801000008.json"
+										},
+										{
+											"key": "refrectype",
+											"value": "patient",
+											"type": "text"
+										},
+										{
+											"key": "refid",
+											"value": "20220801000008",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8008/common/uploadfile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"common",
+										"uploadfile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete patient file",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8008/common/deletefile?id=20220801000004",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"common",
+										"deletefile"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "20220801000004"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orgid\":\"20220801000000\",\r\n  \"firstname\": \"surya\",\r\n  \"lastname\": \"sai\",\r\n  \"gender\": \"male\",\r\n  \"dob\": \"1988-09-07\",\r\n  \"language\": \"english\",\r\n  \"status\":\"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/patient/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"patient",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get patient details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/patient/get?id=20220801000014",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"patient",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000014"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update patient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orgid\":\"20220801000013\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/patient/update?id=20220801000015",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"patient",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000015"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete patient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8008/patient/delete?id=20220801000007",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"patient",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000007"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "organization",
+			"item": [
+				{
+					"name": "contact",
+					"item": []
+				},
+				{
+					"name": "file",
+					"item": [
+						{
+							"name": "organization upload File",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/mahshaik/source/repos/NodeJsRepo/NodeJsTask3/filedata/organization_20220801000013.json"
+										},
+										{
+											"key": "refid",
+											"value": "202208010000013",
+											"type": "text"
+										},
+										{
+											"key": "refrectype",
+											"value": "organization",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8008/common/uploadfile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"common",
+										"uploadfile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete file",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8008/common/deletefile?id=20220801000005",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"common",
+										"deletefile"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "20220801000005"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create Organization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"00A1\",\r\n    \"name\":\"innominds\",\r\n    \"type\":\"backoffice\",\r\n    \"status\":\"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/organization/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"organization",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Organization details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8008/organization/get?id=20220801000009",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"organization",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000009"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update organization",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"00b2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/organization/update?id=20220801000009",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"organization",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000009"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Organization",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8008/organization/delete?id=20220801000009",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"organization",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000009"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

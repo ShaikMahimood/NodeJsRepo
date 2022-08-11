@@ -18,7 +18,7 @@ const patientdata = [{
         "nickname": "honey",
         "gender": "male",
         "dob": "06/09/1986",
-        "language": "telugu",
+        "language": "hindi",
         "status": "active"
     }
 

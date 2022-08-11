@@ -8,7 +8,6 @@ const { Utils } = require("../common/utils");
 const utils = new Utils();
 //Schema for file to check type and required fields to validate
 const file = new Schema({
-  id: { type: Number },
   rectype: { type: String }, //file,
   refid: { type: String, required: true, },
   refrectype: {
@@ -77,16 +76,18 @@ function Validation(req, res, next) {
 async function addFile(req, res) {
   try {
     const rectype = config.file.rectype;
+    console.log(req.file);
     const {
       file: { originalname, mimetype : type, filename, size, path : filepath},
       body: { refid, refrectype },
     } = req;
-    const fileContent = utils.getFileContent(filepath).toString("utf-8");
+    const fileContent = utils.getFileContent(filepath);
     const filedata = { filename: originalname, fileContent };
     const uploadInfo = await uploadFile(filedata);
+    console.log("info:  ", uploadInfo);
     const url = uploadInfo.Location;
     const name = path.parse(filename).name;
-    const orgparams = { rectype: refrectype, id: refid};
+    
     const status = config.file.status.completed;
     const addpayload = {
       rectype,
@@ -100,14 +101,13 @@ async function addFile(req, res) {
       status
     };
     if(refrectype == config.patient.rectype){
+      const orgparams = { rectype: refrectype, id: refid};
       const orgid = await utils.getRecOrgId(orgparams);
       addpayload.orgid = orgid;
     }
-    
-    console.log("payload data", addpayload);
+    console.log(addpayload);
     const fileinfo = await createRecord(addpayload); //calling createRecord function and get recorded information from mongodb file
-    console.log(fileinfo);
-
+    
     res.status(200).json({ status: "Success", results: fileinfo }); //get success and results response if record is successfully inserted
   } catch (error) {
     console.log("Error :", error);
