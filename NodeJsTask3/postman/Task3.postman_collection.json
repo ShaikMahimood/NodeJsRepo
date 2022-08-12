@@ -58,7 +58,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8008/common/deletefile?id=20220801000004",
+									"raw": "http://localhost:8008/common/deletefile?id=20220801000019",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -71,7 +71,7 @@
 									"query": [
 										{
 											"key": "id",
-											"value": "20220801000004"
+											"value": "20220801000019"
 										}
 									]
 								}
@@ -79,6 +79,130 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "contact",
+					"item": [
+						{
+							"name": "patient address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refid\":\"20220801000008\",\r\n    \"refrectype\":\"patient\",\r\n    \"type\":\"address\",\r\n    \"subtype\":\"home\",\r\n    \"data\":{\r\n        \"line1\":\"3-202/6/B\",\r\n        \"line2\":\"kousar kodad\",\r\n        \"city\":\"kodad\",\r\n        \"state\":\"telanaga\",\r\n        \"zip\":\"508206\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/addcontact",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"addcontact"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "patient email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/addcontact",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"addcontact"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update patient address",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refid\":\"20220801000008\",\r\n    \"refrectype\":\"patient\",\r\n    \"type\":\"address\",\r\n    \"subtype\":\"home\",\r\n    \"data\":{\r\n        \"line1\":\"876-86/B\",\r\n        \"line2\":\"narayana pet\",\r\n        \"city\":\"vijayawada\",\r\n        \"state\":\"Ap\",\r\n        \"zip\":\"508206\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/updatecontact?id=20220801000067",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"updatecontact"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "20220801000067"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete patient address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8008/contact/removecontact?id=20220801000067",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"contact",
+								"removecontact"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000067"
+								}
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "create patient",
@@ -266,7 +390,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8008/common/deletefile?id=20220801000005",
+									"raw": "http://localhost:8008/common/deletefile?id=20220801000018",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -279,7 +403,189 @@
 									"query": [
 										{
 											"key": "id",
-											"value": "20220801000005"
+											"value": "20220801000018"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "contact",
+					"item": [
+						{
+							"name": "organization address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refid\":\"20220801000000\",\r\n    \"refrectype\":\"organization\",\r\n    \"type\":\"address\",\r\n    \"subtype\":\"home\",\r\n    \"data\":{\r\n        \"line1\":\"3-202/6/B\",\r\n        \"line2\":\"Nayanagar kodad\",\r\n        \"city\":\"kodad\",\r\n        \"state\":\"telanaga\",\r\n        \"zip\":\"508206\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/addcontact",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"addcontact"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "organization email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refid\":\"20220801000008\",\r\n    \"refrectype\":\"organization\",\r\n    \"type\":\"email\",\r\n    \"subtype\":\"primary\",\r\n    \"data\":\"mahimood@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/addcontact",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"addcontact"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "organization phone Number",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refid\":\"20220801000008\",\r\n    \"refrectype\":\"organization\",\r\n    \"type\":\"phone\",\r\n    \"subtype\":\"mobile\",\r\n    \"data\":\"999999999\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/addcontact",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"addcontact"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "organization fax number",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refid\":\"20220801000008\",\r\n    \"refrectype\":\"organization\",\r\n    \"type\":\"fax\",\r\n    \"subtype\":\"work\",\r\n    \"data\":\"555-123-4567\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/addcontact",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"addcontact"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updated organization contact",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refid\":\"20220801000000\",\r\n    \"refrectype\":\"organization\",\r\n    \"type\":\"address\",\r\n    \"subtype\":\"home\",\r\n    \"data\":{\r\n        \"line1\":\"07-355/8-M\",\r\n        \"line2\":\"chapthala\",\r\n        \"city\":\"b kot\",\r\n        \"state\":\"karanataka\",\r\n        \"zip\":\"508206\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8008/contact/updatecontact?id=20220801000047",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"updatecontact"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "20220801000047"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete organization contact",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8008/contact/removecontact?id=20220801000047",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8008",
+									"path": [
+										"contact",
+										"removecontact"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "20220801000047"
 										}
 									]
 								}

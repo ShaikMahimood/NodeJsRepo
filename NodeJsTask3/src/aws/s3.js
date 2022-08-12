@@ -21,16 +21,6 @@ async function uploadFile(file) {
   const uploadinfo = await s3.upload(params).promise();
   console.log("upload info: ",uploadinfo);
   return uploadinfo;
-  // return new Promise((resolve, reject) => {
-  //   s3.upload(params, (err, data) => {
-  //     if (err) {
-  //       console.log("Error ", err)
-  //       reject("File Not uploaded!");
-  //     }
-  //     console.log(data);
-  //     resolve(data);
-  //   });
-  // });
 }
 
 //delete file from s3 function by deleteFile function

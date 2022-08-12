@@ -26,9 +26,7 @@ async function getNextSequenceValue() {
   const db = await dbConnection(); //connect to mongodb and get databases
 
   const collname = config.sequence.rectype; //take collection name from config file
-  console.log(collname);
   const sequenceDoc = await db.collection(collname).findOneAndUpdate({ id: "0" }, { $inc: { data: 1 } }); //find and update sequence values
-  console.log("seq value", sequenceDoc.value.data.toString());
   return sequenceDoc.value.data.toString(); //return ouput data
 }
 
@@ -36,7 +34,6 @@ async function getNextSequenceValue() {
 async function createRecord(item) {
   return new Promise(async(resolve, reject) => {
     try {
-      console.log("inserted values:  ",item);
       item.created = utils.getCurrentDateTime(); //getCurrentDateTime() is used to get current data and time from Utils file
  
       const collname = item.rectype; //collection name
@@ -44,7 +41,6 @@ async function createRecord(item) {
       const db = await dbConnection();
       item.id = await getNextSequenceValue(); //find new value for id
       const newRec = await db.collection(collname).insertOne(item); //insert record into database
-      console.log("recorded data: ", newRec);
       resolve(item);
     } catch (error) {
       reject(error);

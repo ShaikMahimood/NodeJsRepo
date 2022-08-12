@@ -76,7 +76,6 @@ function Validation(req, res, next) {
 async function addFile(req, res) {
   try {
     const rectype = config.file.rectype;
-    console.log(req.file);
     const {
       file: { originalname, mimetype : type, filename, size, path : filepath},
       body: { refid, refrectype },
@@ -84,7 +83,6 @@ async function addFile(req, res) {
     const fileContent = utils.getFileContent(filepath);
     const filedata = { filename: originalname, fileContent };
     const uploadInfo = await uploadFile(filedata);
-    console.log("info:  ", uploadInfo);
     const url = uploadInfo.Location;
     const name = path.parse(filename).name;
     
@@ -105,12 +103,10 @@ async function addFile(req, res) {
       const orgid = await utils.getRecOrgId(orgparams);
       addpayload.orgid = orgid;
     }
-    console.log(addpayload);
     const fileinfo = await createRecord(addpayload); //calling createRecord function and get recorded information from mongodb file
     
     res.status(200).json({ status: "Success", results: fileinfo }); //get success and results response if record is successfully inserted
   } catch (error) {
-    console.log("Error :", error);
     res.status(400).json({ status: "Error :", error: error.message }); //get error status if error while occurs
   }
 }
@@ -122,12 +118,13 @@ async function Filedelete(req, res) {
     const payload = query;
     console.log(payload);
     payload.rectype = config.file.rectype;
-    const datainfo = deleteFile(payload);
-    const data = await deleteRecord(payload); //calling deleterecord function from mongodb file
-    res.status(200).json({ status: "Success", results: data }); //get success and results response if record is successfully deleted
+    const originalname = await utils.getFileOriginalname(payload);
+    console.log(originalname);
+    let deleteinfo = await deleteFile(originalname);
+    deleteinfo = await deleteRecord(payload); //calling deleterecord function from mongodb file
+    res.status(200).json({ status: "Success", results: deleteinfo }); //get success and results response if record is successfully deleted
   } catch (error) {
-    console.log("Error :" + error);
-    res.status(400).json({ status: "Error :", error: error.message }); //get error status if error while occurs
+    res.status(400).json({ status: "Error :", error: error.message  }); //get error status if error while occurs
   }
 }
 

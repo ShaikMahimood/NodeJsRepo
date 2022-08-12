@@ -70,4 +70,4 @@ function Validation(req, res, next) {
   }
 }
 
-module.exports = { patient, Validation};
+module.exports = { Validation};

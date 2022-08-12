@@ -13,13 +13,20 @@ class Utils {
   async getRecOrgId(params){
     const { getRecord } = require("../db/mongodb.js");
     const { id, rectype} = params;
-    console.log(id);
     const orgInfo = await getRecord({ id, rectype});
-    console.log(orgInfo);
     if(!orgInfo.length){
         throw `Invalid ${rectype} Id`;
     }
     return orgInfo[0].id;
+  }
+  async getFileOriginalname(params){
+    const { getRecord } = require("../db/mongodb.js");
+    const { id, rectype} = params;
+    const orgInfo = await getRecord({ id, rectype});
+    if(!orgInfo.length){
+        throw `Invalid ${rectype} Id`;
+    }
+    return orgInfo[0].originalname;
   }
 }
 

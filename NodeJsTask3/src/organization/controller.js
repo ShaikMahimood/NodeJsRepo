@@ -13,7 +13,6 @@ async function createRec(req, res) {
     const orginfo = await createRecord(req.body);
     res.status(200).json({ status: "Success", results: orginfo });
   } catch (error) {
-    console.log("Error :" + error);
     res.status(400).json({ status: "Error :", error: error });
   }
 }

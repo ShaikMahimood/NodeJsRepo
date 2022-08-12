@@ -43,6 +43,7 @@
         ]
     },
     "contact": {
+        "rectype":"contact",
         "type": {
             "address": "address",
             "email": "email",
