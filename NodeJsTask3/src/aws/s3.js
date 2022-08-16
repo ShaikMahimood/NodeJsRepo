@@ -9,7 +9,6 @@ const s3 = new AWS.S3({
 
 //uploadFile function is used to upload file into aws s3 bucket
 async function uploadFile(file) {
-  console.log(file);
   const { filename, fileContent } = file;
   const params = {
     Bucket: config.aws.Bucket_Name,
@@ -19,7 +18,6 @@ async function uploadFile(file) {
 
   // Uploading files to the s3 bucket
   const uploadinfo = await s3.upload(params).promise();
-  console.log("upload info: ",uploadinfo);
   return uploadinfo;
 }
 
@@ -34,7 +32,6 @@ async function deleteFile(originalname) {
 
     return fileinfo;
   } catch (error) {
-    console.log("Error :" + error);
     throw error;
   }
 }

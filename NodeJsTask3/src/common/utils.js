@@ -17,7 +17,7 @@ class Utils {
     if(!orgInfo.length){
         throw `Invalid ${rectype} Id`;
     }
-    return orgInfo[0].id;
+    return orgInfo[0].orgid;
   }
   async getFileOriginalname(params){
     const { getRecord } = require("../db/mongodb.js");

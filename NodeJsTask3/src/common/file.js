@@ -9,7 +9,7 @@ const utils = new Utils();
 //Schema for file to check type and required fields to validate
 const file = new Schema({
   rectype: { type: String }, //file,
-  refid: { type: String, required: true, },
+  refid: { type: String, required: true },
   refrectype: {
     type: String,
     enum: [config.patient.rectype, config.organization.rectype],
@@ -77,37 +77,44 @@ async function addFile(req, res) {
   try {
     const rectype = config.file.rectype;
     const {
-      file: { originalname, mimetype : type, filename, size, path : filepath},
+      file: { originalname, mimetype: type, filename, size, path: filepath },
       body: { refid, refrectype },
     } = req;
-    const fileContent = utils.getFileContent(filepath);
-    const filedata = { filename: originalname, fileContent };
-    const uploadInfo = await uploadFile(filedata);
-    const url = uploadInfo.Location;
+
+    //take Name of the file without extension
     const name = path.parse(filename).name;
-    
+
     const status = config.file.status.completed;
     const addpayload = {
       rectype,
       refid,
       refrectype,
-      url,
       type,
       originalname,
       name,
       size,
-      status
+      status,
     };
-    if(refrectype == config.patient.rectype){
-      const orgparams = { rectype: refrectype, id: refid};
+    //check if refrectype is patient or not, if patient then find orgid
+    if (refrectype == config.patient.rectype) {
+      const orgparams = { rectype: refrectype, id: refid };
       const orgid = await utils.getRecOrgId(orgparams);
       addpayload.orgid = orgid;
     }
+
+    //find filecontent from getfilecontent function from filepath
+    const fileContent = utils.getFileContent(filepath);
+    const filedata = { filename: originalname, fileContent };
+    //uploadFile function used to upload file into s3bucket
+    const uploadInfo = await uploadFile(filedata);
+    //get url from s3bucket location
+    addpayload.url = uploadInfo.Location;
+
     const fileinfo = await createRecord(addpayload); //calling createRecord function and get recorded information from mongodb file
-    
+
     res.status(200).json({ status: "Success", results: fileinfo }); //get success and results response if record is successfully inserted
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error.message }); //get error status if error while occurs
+    res.status(400).json({ status: "Error :", error: error }); //get error status if error while occurs
   }
 }
 
@@ -116,15 +123,13 @@ async function Filedelete(req, res) {
   try {
     const { query } = req;
     const payload = query;
-    console.log(payload);
     payload.rectype = config.file.rectype;
     const originalname = await utils.getFileOriginalname(payload);
-    console.log(originalname);
     let deleteinfo = await deleteFile(originalname);
     deleteinfo = await deleteRecord(payload); //calling deleterecord function from mongodb file
     res.status(200).json({ status: "Success", results: deleteinfo }); //get success and results response if record is successfully deleted
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error.message  }); //get error status if error while occurs
+    res.status(400).json({ status: "Error :", error: error }); //get error status if error while occurs
   }
 }
 

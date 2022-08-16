@@ -2,8 +2,8 @@ const express = require("express");
 const multer = require("multer");
 const app = express();
 
-const patient = require("./routers/patient");
 const organization = require("./routers/organization");
+const patient = require("./routers/patient");
 const common = require("./routers/common");
 const contact = require("./routers/contact");
 
@@ -24,11 +24,12 @@ const upload = multer({ storage: storage });
 
 app.use(upload.single("file"));
 
-//Configure router so all routes are prefixed with /Users
-app.use("/patient", patient);
+//Configure router so all routes are prefixed with specifix router endpoint
 app.use("/organization", organization);
+app.use("/patient", patient);
 app.use("/common", common);
-app.use("/contact", contact);
+app.use("/organization/contact", contact);
+app.use("/patient/contact", contact);
 
 //SET the server to listen at 3000
 app.listen(8008, () =>

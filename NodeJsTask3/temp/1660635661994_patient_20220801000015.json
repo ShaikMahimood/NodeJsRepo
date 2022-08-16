@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "62f49778e17612c42f7a3dbf"
+  },
+  "rectype": "patient",
+  "firstname": "ram",
+  "lastname": "reddy",
+  "nickname": "honey",
+  "gender": "male",
+  "dob": "06/09/1986",
+  "language": "hindi",
+  "status": "active",
+  "created": "2022-08-11T05:45:27.815Z",
+  "id": "20220801000015",
+  "orgid": "20220801000013"
+}]
