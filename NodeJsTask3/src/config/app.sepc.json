@@ -43,7 +43,7 @@
         ]
     },
     "contact": {
-        "rectype":"contact",
+        "rectype": "contact",
         "type": {
             "address": "address",
             "email": "email",
@@ -57,7 +57,17 @@
             "personal": "personal",
             "primary": "primary",
             "secondary": "secondary"
-        }
+        },
+        "address": [
+            "line1",
+            "line2",
+            "city",
+            "state",
+            "zip"
+        ],
+        "phonenumberreqex":"^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}$",
+        "faxregex": "^\\+[0-9]{1,3}-[0-9]{3}-[0-9]{4,7}$"
+
     },
     "aws": {
         "ACCESS_KEY_ID": "AKIAQATBCZB5JMXVCIV6",

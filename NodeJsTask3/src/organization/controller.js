@@ -27,7 +27,6 @@ async function getRec(req, res) {
     const data = await getRecord(payload);
     res.status(200).json({ status: "Success", results: data });
   } catch (error) {
-    console.log("Error :" + error);
     res.status(400).json({ status: "Error :", error: error });
   }
 }
@@ -42,7 +41,6 @@ async function updateRec(req, res) {
     const data = await updateRecord(payload);
     res.status(200).json({ status: "Success", results: data });
   } catch (error) {
-    console.log("Error :" + error);
     res.status(400).json({ status: "Error :", error: error });
   }
 }
@@ -52,13 +50,11 @@ async function deleteRec(req, res) {
   try {
     const { query } = req;
     const payload = query;
-    console.log(payload);
     payload.rectype = config.organization.rectype;
 
     const data = await deleteRecord(payload);
     res.status(200).json({ status: "Success", results: data });
   } catch (error) {
-    console.log("Error :" + error);
     res.status(400).json({ status: "Error :", error: error });
   }
 }

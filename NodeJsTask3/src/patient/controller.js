@@ -22,10 +22,8 @@ async function getRec(req, res) {
   try {
     const { query } = req;
     const payload = query;
-    console.log(payload);
     payload.rectype = config.patient.rectype;
     const patientInfo = await getRecord(payload);
-    console.log(patientInfo);
 
     res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {
@@ -41,7 +39,6 @@ async function updateRec(req, res) {
     payload.rectype = config.patient.rectype;
     payload.body = req.body;
     const patientInfo = await updateRecord(payload);
-    console.log(patientInfo);
     res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
