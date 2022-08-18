@@ -57,7 +57,7 @@ async function getRecord(item) {
       const collname = rectype;
       const getRec = await db.collection(collname).find(restParams).toArray(); //get data from requested parameters
       if(!getRec.length){
-        throw `Record is Not Found!`;
+        throw `${rectype} Record is Not Found!`;
       }
       resolve(getRec); //get data from database
     } catch (error) {
@@ -78,7 +78,7 @@ async function updateRecord(item) {
         .collection(collname)
         .updateOne({ id: id }, { $set: body }); //find the id and update the record
         if(!newRec.modifiedCount){
-          throw `Record is Not Found!`;
+          throw `${rectype} Record is Not Found!`;
         }
         resolve(item); //if data updated get the update record
     } catch (error) {
@@ -96,7 +96,7 @@ async function deleteRecord(item) {
       const collname = rectype; //collection name
       const result = await db.collection(collname).deleteOne(restParams); //find and update the selected id
       if(!result.deletedCount){
-        throw `Record is Not Found!`;
+        throw `${rectype} Record is Not Found!`;
       }
       resolve(result);
     } catch (error) {
