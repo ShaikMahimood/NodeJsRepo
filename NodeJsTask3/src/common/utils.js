@@ -5,16 +5,19 @@ const validatePhoneNumber = new RegExp(config.contact.phonenumberreqex);
 const validateFax = new RegExp(config.contact.faxregex);
 
 class Utils {
+  //getCurrentDateTime function used to get current datetime
   getCurrentDateTime() {
     return new Date().toISOString();
   }
 
+  //getFileContent function used to get content og the file
   getFileContent(path) {
     // Read content from the file
     const fileContent = fs.readFileSync(path);
     return fileContent;
   }
 
+  //getRecOrgId function used to get orgid from the valid record 
   async getRecOrgId(params) {
     const { getRecord } = require("../db/mongodb.js");
     const { id, rectype } = params;
@@ -25,6 +28,7 @@ class Utils {
     return orgInfo[0].orgid;
   }
 
+  //getFileOriginalname function used to get file original name
   async getFileOriginalname(params) {
     const { getRecord } = require("../db/mongodb.js");
     const { id, rectype } = params;

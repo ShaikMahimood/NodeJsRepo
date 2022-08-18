@@ -328,6 +328,7 @@ async function removeFax(contactBody) {
   }
 }
 
+//processFun function used to valid the action and send valid function
 function processFun(__action) {
   const functionMapping = {
     addAddress: addAddress,
