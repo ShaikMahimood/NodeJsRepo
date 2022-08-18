@@ -84,366 +84,386 @@
 					"name": "contact",
 					"item": [
 						{
-							"name": "add patient address",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\": \"addAddress\",\r\n    \"body\": {\r\n        \"refid\": \"2022080100008\",\r\n        \"type\": \"address\",\r\n        \"subtype\": \"home\",\r\n        \"address\": {\r\n            \"line1\": \"3-202/6/B\",\r\n            \"line2\": \"Nayanagar kodad\",\r\n            \"city\": \"kodad\",\r\n            \"state\": \"telanaga\",\r\n            \"zip\": \"508206\"\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "address",
+							"item": [
+								{
+									"name": "add patient address",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\": \"addAddress\",\r\n    \"body\": {\r\n        \"refid\": \"2022080100008\",\r\n        \"type\": \"address\",\r\n        \"subtype\": \"home\",\r\n        \"address\": {\r\n            \"line1\": \"3-202/6/B\",\r\n            \"line2\": \"Nayanagar kodad\",\r\n            \"city\": \"kodad\",\r\n            \"state\": \"telanaga\",\r\n            \"zip\": \"508206\"\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											],
+											"query": [
+												{
+													"key": "",
+													"value": null,
+													"disabled": true
+												}
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									],
-									"query": [
-										{
-											"key": "",
-											"value": null,
-											"disabled": true
+								{
+									"name": "update patient address",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"updateAddress\",\r\n    \"body\":{\r\n        \"id\":\"20220801000032\",\r\n        \"type\":\"address\",\r\n        \"address\": {\r\n            \"line1\": \"3-202/6/B\",\r\n            \"line2\": \"kousar Nagar kodad\",\r\n            \"city\": \"kodad\",\r\n            \"state\": \"telanaga\",\r\n            \"zip\": \"508206\"\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
 										}
-									]
+									},
+									"response": []
+								},
+								{
+									"name": "delete patient address",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removeAddress\",\r\n    \"body\":{\r\n        \"id\":\"20220801000032\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "add patient email",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"addEmail\",\r\n    \"body\":{\r\n        \"refid\":\"20220801000014\",\r\n        \"type\":\"email\",\r\n        \"subtype\":\"primary\",\r\n        \"email\":\"brreddy@gmail.com\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "email",
+							"item": [
+								{
+									"name": "add patient email",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"addEmail\",\r\n    \"body\":{\r\n        \"refid\":\"20220801000014\",\r\n        \"type\":\"email\",\r\n        \"subtype\":\"primary\",\r\n        \"email\":\"brreddy@gmail.com\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
+								{
+									"name": "update patient email",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"updateEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000028\",\r\n        \"type\":\"email\",\r\n        \"email\":\"mahimood@gmail.com\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete patient email",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removeEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000028\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "add patient phone number",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"addPhone\",\r\n    \"body\":{\r\n        \"refid\":\"20220801000015\",\r\n        \"type\":\"phone\",\r\n        \"subtype\":\"personal\",\r\n        \"phone\": 9099909090\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "phone",
+							"item": [
+								{
+									"name": "add patient phone number",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"addPhone\",\r\n    \"body\":{\r\n        \"refid\":\"20220801000015\",\r\n        \"type\":\"phone\",\r\n        \"subtype\":\"personal\",\r\n        \"phone\": 9099909090\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
+								{
+									"name": "update patient phone number",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"updatePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000029\",\r\n        \"type\":\"phone\",\r\n        \"phone\": 9989890890\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete patient phone number",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000029\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "add patient fax",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"addFax\",\r\n    \"body\":{\r\n        \"refid\":\"2022080100008\",\r\n        \"type\":\"fax\",\r\n        \"subtype\":\"home\",\r\n        \"fax\": \"+99-011-123432\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "fax",
+							"item": [
+								{
+									"name": "add patient fax",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"addFax\",\r\n    \"body\":{\r\n        \"refid\":\"2022080100008\",\r\n        \"type\":\"fax\",\r\n        \"subtype\":\"home\",\r\n        \"fax\": \"+99-011-123432\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update patient address",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"updateAddress\",\r\n    \"body\":{\r\n        \"id\":\"20220801000032\",\r\n        \"type\":\"address\",\r\n        \"address\": {\r\n            \"line1\": \"3-202/6/B\",\r\n            \"line2\": \"kousar Nagar kodad\",\r\n            \"city\": \"kodad\",\r\n            \"state\": \"telanaga\",\r\n            \"zip\": \"508206\"\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+								{
+									"name": "update patient fax",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\": \"updateFax\",\r\n    \"body\": {\r\n        \"id\": \"20220801000030\",\r\n        \"type\": \"fax\",\r\n        \"fax\": \"+99-011-756622\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "20220801000022",
+													"disabled": true
+												}
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update patient phone number",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"updatePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000029\",\r\n        \"type\":\"phone\",\r\n        \"phone\": 9989890890\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+								{
+									"name": "delete patient fax",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removeFax\",\r\n    \"body\":{\r\n        \"id\":\"20220801000030\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/patient/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"patient",
+												"contact"
+											]
 										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
+									},
+									"response": []
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "update patient email",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"updateEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000028\",\r\n        \"type\":\"email\",\r\n        \"email\":\"mahimood@gmail.com\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update patient fax",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\": \"updateFax\",\r\n    \"body\": {\r\n        \"id\": \"20220801000030\",\r\n        \"type\": \"fax\",\r\n        \"fax\": \"+99-011-756622\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "20220801000022",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete patient address",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removeAddress\",\r\n    \"body\":{\r\n        \"id\":\"20220801000032\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete patient email",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removeEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000028\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete patient phone number",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000029\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete patient fax",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removeFax\",\r\n    \"body\":{\r\n        \"id\":\"20220801000030\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/patient/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"patient",
-										"contact"
-									]
-								}
-							},
-							"response": []
+							]
 						}
 					]
 				},
@@ -659,373 +679,393 @@
 					"name": "contact",
 					"item": [
 						{
-							"name": "add organization address",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"addAddress\",\r\n    \"body\":{\r\n    \"refid\":\"2022080100000\",\r\n    \"type\":\"address\",\r\n    \"subtype\":\"work\",\r\n    \"address\":{\r\n        \"line1\":\"INNOMINDS\",\r\n        \"line2\":\"Gachibowli\",\r\n        \"city\":\"Hyderabad\",\r\n        \"state\":\"telanaga\",\r\n        \"zip\":\"500032\"\r\n    }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "address",
+							"item": [
+								{
+									"name": "add organization address",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"addAddress\",\r\n    \"body\":{\r\n    \"refid\":\"2022080100000\",\r\n    \"type\":\"address\",\r\n    \"subtype\":\"work\",\r\n    \"address\":{\r\n        \"line1\":\"INNOMINDS\",\r\n        \"line2\":\"Gachibowli\",\r\n        \"city\":\"Hyderabad\",\r\n        \"state\":\"telanaga\",\r\n        \"zip\":\"500032\"\r\n    }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
+								{
+									"name": "update organization address",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\": \"updateAddress\",\r\n    \"body\": {\r\n        \"id\":\"20220801000023\",\r\n        \"type\": \"address\",\r\n        \"address\": {\r\n            \"line1\": \"Innominds Software Pvt Ltd\",\r\n            \"line2\": \"Waverock, Gachibowli\",\r\n            \"city\": \"Hyderabad\",\r\n            \"state\": \"Telangana\",\r\n            \"zip\": \"500032\"\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete organization address",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removeAddress\",\r\n    \"body\":{\r\n        \"id\":\"20220801000021\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "20220801000021",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "add organization email",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"addEmail\",\r\n    \"body\":{\r\n        \"refid\":\"2022080100000\",\r\n        \"type\":\"email\",\r\n        \"subtype\":\"primary\",\r\n        \"email\":\"mahimood@innominds.com\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "email",
+							"item": [
+								{
+									"name": "add organization email",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"addEmail\",\r\n    \"body\":{\r\n        \"refid\":\"2022080100000\",\r\n        \"type\":\"email\",\r\n        \"subtype\":\"primary\",\r\n        \"email\":\"mahimood@innominds.com\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
+								{
+									"name": "update organization email",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"updateEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000024\",\r\n        \"type\":\"email\",\r\n        \"email\":\"backoffice@innominds.com\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "20220801000023",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete organization email",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removeEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000022\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											],
+											"query": [
+												{
+													"key": "",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "add organization phone Number",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"addPhone\",\r\n    \"body\":{\r\n        \"refid\":\"2022080100000\",\r\n        \"type\":\"phone\",\r\n        \"subtype\":\"mobile\",\r\n        \"phone\":9876678599\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "phone",
+							"item": [
+								{
+									"name": "add organization phone Number",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"addPhone\",\r\n    \"body\":{\r\n        \"refid\":\"2022080100000\",\r\n        \"type\":\"phone\",\r\n        \"subtype\":\"mobile\",\r\n        \"phone\":9876678599\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
+								{
+									"name": "update organization phone",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"updatePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000025\",\r\n        \"type\":\"phone\",\r\n        \"phone\":9989909090\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete organization phone number",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000029\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "add organization fax number",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\": \"addFax\",\r\n    \"body\": {\r\n        \"refid\": \"2022080100000\",\r\n        \"type\": \"fax\",\r\n        \"subtype\": \"work\",\r\n        \"fax\": \"+555-123-4565\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "fax",
+							"item": [
+								{
+									"name": "add organization fax",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\": \"addFax\",\r\n    \"body\": {\r\n        \"refid\": \"2022080100000\",\r\n        \"type\": \"fax\",\r\n        \"subtype\": \"work\",\r\n        \"fax\": \"+555-123-4565\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update organization contact",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\": \"updateAddress\",\r\n    \"body\": {\r\n        \"id\":\"20220801000023\",\r\n        \"type\": \"address\",\r\n        \"address\": {\r\n            \"line1\": \"Innominds Software Pvt Ltd\",\r\n            \"line2\": \"Waverock, Gachibowli\",\r\n            \"city\": \"Hyderabad\",\r\n            \"state\": \"Telangana\",\r\n            \"zip\": \"500032\"\r\n        }\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+								{
+									"name": "update organization fax",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\": \"updateFax\",\r\n    \"body\": {\r\n        \"id\": \"20220801000026\",\r\n        \"type\": \"fax\",\r\n        \"fax\": \"+11-123-4565\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
+								{
+									"name": "delete organization fax",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"__action\":\"removeFax\",\r\n    \"body\":{\r\n        \"id\":\"20220801000030\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8008/organization/contact",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8008",
+											"path": [
+												"organization",
+												"contact"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "update organization email",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"updateEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000024\",\r\n        \"type\":\"email\",\r\n        \"email\":\"backoffice@innominds.com\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "20220801000023",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update organization phone",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"updatePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000025\",\r\n        \"type\":\"phone\",\r\n        \"phone\":9989909090\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update organization fax",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\": \"updateFax\",\r\n    \"body\": {\r\n        \"id\": \"20220801000026\",\r\n        \"type\": \"fax\",\r\n        \"fax\": \"+11-123-4565\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete organization contact",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removeAddress\",\r\n    \"body\":{\r\n        \"id\":\"20220801000021\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "20220801000021",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete organization email",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removeEmail\",\r\n    \"body\":{\r\n        \"id\":\"20220801000022\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									],
-									"query": [
-										{
-											"key": "",
-											"value": "",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete organization phone number",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removePhone\",\r\n    \"body\":{\r\n        \"id\":\"20220801000029\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete organization fax",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"__action\":\"removeFax\",\r\n    \"body\":{\r\n        \"id\":\"20220801000030\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8008/organization/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8008",
-									"path": [
-										"organization",
-										"contact"
-									]
-								}
-							},
-							"response": []
+							]
 						}
 					]
 				},
