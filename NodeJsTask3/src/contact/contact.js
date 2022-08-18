@@ -35,7 +35,7 @@ const contactSchema = new Schema({
   },
 });
 
-//validation function is used to validate required fields and type of fields
+//validation function is used to validate requested fields with the schema
 async function validation(validateParams) {
   const { refid, refrectype, type, subtype } = validateParams;
   const contactData = {

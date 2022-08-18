@@ -1,6 +1,7 @@
 const Schema = require("validate");
 const config = require('../config/app.sepc.json');
 
+//schema for organization
 const officeSchema = new Schema({
   rectype: {
     type: String,
@@ -31,6 +32,7 @@ const officeSchema = new Schema({
   data: {},
 });
 
+//validation function is used to validate requested fields with the schema
 function Validation(req, res, next) {
   const {
     body: { rectype, code, type, status, inactivereason, created, date },

@@ -1,6 +1,7 @@
 const Schema = require("validate");
 const config = require('../config/app.sepc.json');
 
+//schema for patient
 const patient = new Schema({
   rectype: { type: String}, // patient
   orgid: { type: String},
@@ -22,7 +23,7 @@ const patient = new Schema({
   created: { type: Date },
 });
 
-
+//validation function is used to validate requested fields with the schema
 function Validation(req, res, next) {
   const {
     body: {
