@@ -8,7 +8,7 @@ const patient = new Schema({
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   nickname: { type: String},
-  gender: { type: String, enum: config.patient.gender, required: true },
+  gender: { type: String, enum: config.common.gender, required: true },
   dob: { type: String, required: true },
   mrn: { type: String },
   ssn: { type: String },
@@ -17,7 +17,7 @@ const patient = new Schema({
     enum: config.patient.language, 
     required: true 
   },
-  status: { type: String, enum: config.common.status },
+  status: { type: String, enum: [config.common.status.active, config.common.status.inactive ]},
   inactivereason: { type: String},
   dateinactivate: { type: String },
   created: { type: Date },
@@ -27,7 +27,6 @@ const patient = new Schema({
 function Validation(req, res, next) {
   const {
     body: {
-      rectype,
       firstname,
       lastname,
       nickname,
@@ -44,7 +43,6 @@ function Validation(req, res, next) {
   } = req;
 
   const patientData = {
-    rectype,
     firstname,
     lastname,
     nickname,
@@ -59,6 +57,7 @@ function Validation(req, res, next) {
     data,
   };
 
+  
   //check validate conditions and send next() otherwise send error
   let errors = patient.validate(patientData);
   if (errors.length) {

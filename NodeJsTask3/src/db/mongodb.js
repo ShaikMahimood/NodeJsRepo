@@ -57,7 +57,7 @@ async function getRecord(item) {
       const collname = rectype;
       const getRec = await db.collection(collname).find(restParams).toArray(); //get data from requested parameters
       if(!getRec.length){
-        throw `${rectype} Record is Not Found!`;
+        resolve({"false": false, error:`${rectype} Record is Not Found!`});
       }
       resolve(getRec); //get data from database
     } catch (error) {
@@ -91,6 +91,7 @@ async function updateRecord(item) {
 async function deleteRecord(item) {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log(item)
       const { rectype, ...restParams } = item; //pass rectype and restparams to get data from collections
       const db = await dbConnection();
       const collname = rectype; //collection name

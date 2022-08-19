@@ -17,7 +17,7 @@ const officeSchema = new Schema({
   },
   status: {
     type: String,
-    enum: config.common.status,
+    enum: [config.common.status.active, config.common.status.inactive ],
     required: true,
   },
 
@@ -35,11 +35,10 @@ const officeSchema = new Schema({
 //validation function is used to validate requested fields with the schema
 function Validation(req, res, next) {
   const {
-    body: { rectype, code, type, status, inactivereason, created, date },
+    body: { code, type, status, inactivereason, created, date },
   } = req;
 
-  const responsedata = {
-    rectype,
+  const officeData = {
     code,
     type,
     status,
@@ -48,7 +47,7 @@ function Validation(req, res, next) {
     date,
   };
   //check validate conditions and send next() otherwise send error
-  let errors = officeSchema.validate(responsedata);
+  let errors = officeSchema.validate(officeData);
   if (errors.length) {
     errors = errors.map((eRec) => {
       return { path: eRec.path, message: eRec.message };

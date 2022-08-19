@@ -22,9 +22,9 @@ async function createRec(req, res) {
 
     await utils.validateDob(dob);
 
-    req.body.rectype = config.patient.rectype;
-    const patientInfo = await createRecord(req.body);
-    res.status(200).json({ status: "Success", results: patientInfo });
+    req.body.rectype = config.user.rectype;
+    const userInfo = await createRecord(req.body);
+    res.status(200).json({ status: "Success", results: userInfo });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }
@@ -35,10 +35,10 @@ async function getRec(req, res) {
   try {
     const { query } = req;
     const payload = query;
-    payload.rectype = config.patient.rectype;
-    const patientInfo = await getRecord(payload);
+    payload.rectype = config.user.rectype;
 
-    res.status(200).json({ status: "Success", results: patientInfo });
+    const userInfo = await getRecord(payload);
+    res.status(200).json({ status: "Success", results: userInfo });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }
@@ -49,18 +49,11 @@ async function updateRec(req, res) {
   try {
     const { query } = req;
     const payload = query;
-    payload.rectype = config.patient.rectype;
+    payload.rectype = config.user.rectype;
     payload.body = req.body;
-    
-    //check if status is inactive or not, if inactive then check inactivereason and dateinactivate
-    if (req.body.status == config.common.status.inactive) {
-      if (req.body.inactivereason)
-        req.body.dateinactivate = utils.getCurrentDateTime();
-      else throw "Enter inactivereason!";
-    }
-    
-    const patientInfo = await updateRecord(payload);
-    res.status(200).json({ status: "Success", results: patientInfo });
+
+    const userInfo = await updateRecord(payload);
+    res.status(200).json({ status: "Success", results: userInfo });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }
@@ -71,10 +64,10 @@ async function deleteRec(req, res) {
   try {
     const { query } = req;
     const payload = query;
-
-    payload.rectype = config.patient.rectype;
-    const patientInfo = await deleteRecord(payload);
-    res.status(200).json({ status: "Success", results: patientInfo });
+    payload.rectype = config.user.rectype;
+    
+    const userInfo = await deleteRecord(payload);
+    res.status(200).json({ status: "Success", results: userInfo });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }

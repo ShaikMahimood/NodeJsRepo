@@ -38,6 +38,14 @@ async function updateRec(req, res) {
     const payload = query;
     payload.rectype = config.organization.rectype;
     payload.body = req.body;
+
+    //check if status is inactive or not, if inactive then check inactivereason and dateinactivate
+    if (req.body.status == config.common.status.inactive) {
+      if (req.body.inactivereason)
+        req.body.dateinactivate = utils.getCurrentDateTime();
+      else throw "Enter inactivereason!";
+    }
+
     const data = await updateRecord(payload);
     res.status(200).json({ status: "Success", results: data });
   } catch (error) {

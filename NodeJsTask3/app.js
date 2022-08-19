@@ -5,7 +5,7 @@ const app = express();
 const organization = require("./routers/organization");
 const patient = require("./routers/patient");
 const common = require("./routers/common");
-
+const user = require("./routers/user");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,6 +27,7 @@ app.use(upload.single("file"));
 app.use("/organization", organization);
 app.use("/patient", patient);
 app.use("/common", common);
+app.use("/user", user);
 
 //SET the server to listen at 3000
 app.listen(8008, () =>

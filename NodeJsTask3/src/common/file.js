@@ -16,7 +16,7 @@ const file = new Schema({
     required: true,
   },
   orgid: { type: String },
-  status: { type: String, enum: config.file.status },
+  status: { type: String, enum: [config.file.status.completed, config.file.status.pending, config.file.status.error] },
   url: { type: String }, //s3 URL
   name: { type: String }, //Name of the file without extension
   originalname: { type: String }, //Original File name including extension

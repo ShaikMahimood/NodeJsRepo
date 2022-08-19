@@ -45,7 +45,7 @@ async function validation(validateParams) {
     subtype,
   };
 
-  //check validate conditions and send next() otherwise send error
+  //validate the schema with requested data
   let errors = contactSchema.validate(contactData);
   if (errors.length) {
     errors = errors.map((eRec) => {
@@ -74,6 +74,7 @@ async function addAddress(contactBody) {
 
     const recparams = { rectype: refrectype, id: refid };
     await getRecord(recparams);
+
     const addressparams = {
       address,
       checkaddress: config.contact.address,

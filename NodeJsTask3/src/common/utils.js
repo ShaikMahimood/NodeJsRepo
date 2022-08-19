@@ -1,8 +1,11 @@
 const fs = require("fs");
 const config = require("../config/app.sepc.json");
 const emailvalidator = require("email-validator");
+const bcrypt = require("bcrypt");
+
 const validatePhoneNumber = new RegExp(config.contact.phonenumberreqex);
-const validateFax = new RegExp(config.contact.faxregex);
+const validatefax = new RegExp(config.contact.faxregex);
+const validatedob = new RegExp(config.common.dobreqex);
 
 class Utils {
   //getCurrentDateTime function used to get current datetime
@@ -17,14 +20,12 @@ class Utils {
     return fileContent;
   }
 
-  //getRecOrgId function used to get orgid from the valid record 
+  //getRecOrgId function used to get orgid from the valid record
   async getRecOrgId(params) {
     const { getRecord } = require("../db/mongodb.js");
     const { id, rectype } = params;
     const orgInfo = await getRecord({ id, rectype });
-    if (!orgInfo.length) {
-      throw `Invalid ${rectype} Id`;
-    }
+    if (!orgInfo.length) throw `Invalid ${rectype} Id`;
     return orgInfo[0].orgid;
   }
 
@@ -33,18 +34,23 @@ class Utils {
     const { getRecord } = require("../db/mongodb.js");
     const { id, rectype } = params;
     const orgInfo = await getRecord({ id, rectype });
-    if (!orgInfo.length) {
-      throw `Invalid ${rectype} Id`;
-    }
+    if (!orgInfo.length) throw `Invalid ${rectype} Id`;
     return orgInfo[0].originalname;
   }
+
+  //validateDob function is used validate the dateofbirth
+  async validateDob(dateofbirth) {
+    if (!validatedob.test(dateofbirth))
+      throw "Enter valid dateofbirth like YYYY-MM-DD format!";
+    return true;
+  }
+
   //validateAddress function is used validate the address
   async validateAddress(params) {
     const { address, checkaddress } = params;
     await checkaddress.forEach((element) => {
-      if (!address.hasOwnProperty(element)) {
+      if (!address.hasOwnProperty(element))
         throw "address mustbe in a format like line1, line2, city, state, zip";
-      }
     });
     return true;
   }
@@ -63,8 +69,25 @@ class Utils {
 
   //validateFax function is used to validate the fax
   async validateFax(fax) {
-    if (!validateFax.test(fax)) throw "Enter Valid Fax!";
+    if (!validatefax.test(fax)) throw "Enter Valid Fax!";
     else return true;
+  }
+
+  //generate encryptedPassword using bcrypt hash
+  async encryptedPassword(password) {
+    const saltRounds = 10;
+    if(!password) throw "Enter Password";
+    return new Promise(async (resolve, reject) => {
+      try {
+        bcrypt.hash(password, saltRounds, function (error, hash) {
+          if (error) reject(error);
+          resolve(hash);
+        });
+      } catch (error) {
+        
+        throw error;
+      }
+    });
   }
 }
 
