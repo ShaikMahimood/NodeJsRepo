@@ -9,19 +9,21 @@ const {
   deleteRec,
 } = require("../src/patient/controller");
 
+const { verifyUserToken } = require('../src/middleware/auth');
+
 const { processFun } = require("../src/contact/contact");
 
 const config = require("../src/config/app.sepc.json");
 
-router.post("/create", Validation, createRec);
+router.post("/create", verifyUserToken, Validation, createRec);
 
-router.get("/get", getRec);
+router.get("/get", verifyUserToken, getRec);
 
-router.put("/update", updateRec);
+router.put("/update", verifyUserToken, updateRec);
 
-router.delete("/delete", deleteRec);
+router.delete("/delete", verifyUserToken, deleteRec);
 
-router.post('/contact', async(req, res)=>{
+router.post('/contact', verifyUserToken, async(req, res)=>{
   try
   {
     const __action = req.body.__action;

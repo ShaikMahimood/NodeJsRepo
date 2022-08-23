@@ -18,7 +18,7 @@ async function dbConnection() {
     console.log("db Connected!");
     return db;
   } catch (error) {
-    console.error(error);
+      throw error;
   }
 }
 //getNextSequenceValue is used to get next value for id
@@ -55,13 +55,10 @@ async function getRecord(item) {
       const { rectype, ...restParams } = item; //pass rectype and restparams to get data from collections
       const db = await dbConnection();
       const collname = rectype;
-      const getRec = await db.collection(collname).find(restParams).toArray(); //get data from requested parameters
-      if(!getRec.length){
-        resolve({"false": false, error:`${rectype} Record is Not Found!`});
-      }
-      resolve(getRec); //get data from database
+      const recList = await db.collection(collname).find(restParams).toArray(); //get data from requested parameters
+      resolve(recList); //get data from database
     } catch (error) {
-      reject(error);
+        reject(error);
     }
   });
 }
@@ -91,11 +88,10 @@ async function updateRecord(item) {
 async function deleteRecord(item) {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(item)
-      const { rectype, ...restParams } = item; //pass rectype and restparams to get data from collections
+      const { rectype, id } = item; //pass rectype and id to get data from collections
       const db = await dbConnection();
       const collname = rectype; //collection name
-      const result = await db.collection(collname).deleteOne(restParams); //find and update the selected id
+      const result = await db.collection(collname).deleteOne({ id }); //find and update the selected id
       if(!result.deletedCount){
         throw `${rectype} Record is Not Found!`;
       }

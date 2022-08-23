@@ -83,5 +83,9 @@
     "db": {
         "dbname": "Task3",
         "mongodburl": "mongodb+srv://new_user:SlTh0ZtXzWxORlXu@cluster0.apboi.mongodb.net/Task3?retryWrites=true&w=majority"
+    },
+    "jwt":{
+        "secreteKey": "My Jwt Token Secrete Key",
+        "expiresTime": "1h"
     }
 }

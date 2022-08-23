@@ -376,7 +376,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"__action\":\"addFax\",\r\n    \"body\":{\r\n        \"refid\":\"2022080100008\",\r\n        \"type\":\"fax\",\r\n        \"subtype\":\"home\",\r\n        \"fax\": \"+99-011-123432\"\r\n    }\r\n}",
+											"raw": "{\r\n    \"__action\":\"addFax\",\r\n    \"body\":{\r\n        \"refid\":\"20220801000014\",\r\n        \"type\":\"fax\",\r\n        \"subtype\":\"home\",\r\n        \"fax\": \"+9-011-123432\"\r\n    }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -474,7 +474,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orgid\":\"20220801000000\",\r\n  \"firstname\": \"surya\",\r\n  \"lastname\": \"sai\",\r\n  \"gender\": \"male\",\r\n  \"dob\": \"1988-09-07\",\r\n  \"language\": \"english\",\r\n  \"status\":\"active\"\r\n}",
+							"raw": "{\r\n    \"orgid\":\"20220801000041\",\r\n  \"firstname\": \"ajay\",\r\n  \"lastname\": \"kumar\",\r\n  \"gender\": \"male\",\r\n  \"dob\": \"1989-09-17\",\r\n  \"language\": \"english\",\r\n  \"status\":\"active\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -575,7 +575,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8008/patient/delete?id=20220801000007",
+							"raw": "http://localhost:8008/patient/delete?id=20220801000054",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -588,7 +588,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "20220801000007"
+									"value": "20220801000054"
 								}
 							]
 						}
@@ -600,10 +600,6 @@
 		{
 			"name": "organization",
 			"item": [
-				{
-					"name": "contact",
-					"item": []
-				},
 				{
 					"name": "file",
 					"item": [
@@ -1076,7 +1072,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"code\":\"00A1\",\r\n    \"name\":\"innominds\",\r\n    \"type\":\"backoffice\",\r\n    \"status\":\"active\"\r\n}",
+							"raw": "{\r\n    \"code\":\"00B2\",\r\n    \"name\":\"unext\",\r\n    \"type\":\"lab\",\r\n    \"status\":\"active\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1180,6 +1176,156 @@
 									"key": "id",
 									"value": "20220801000009"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orgid\":\"2022080100000\",\r\n  \"firstname\": \"nag\",\r\n  \"lastname\": \"arjuna\",\r\n  \"gender\": \"male\",\r\n  \"dob\": \"1989-11-13\",\r\n  \"status\":\"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/user/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstname\": \"shaik\",\r\n  \"lastname\": \"mahimood\",\r\n  \"gender\": \"male\",\r\n  \"dob\": \"1998-01-13\",\r\n  \"status\":\"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/user/update?id=20220801000039",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"user",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000039"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8008/user/get?id=20220801000039",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"user",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000039"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8008/user/delete?id=20220801000039",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"user",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "20220801000039"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authentication user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refid\":\"20220801000064\",\r\n    \"data\":{\r\n        \"username\":\"arjunaNag\",\r\n        \"password\":\"123@Nag\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/user/authentication",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"user",
+								"authentication"
 							]
 						}
 					},

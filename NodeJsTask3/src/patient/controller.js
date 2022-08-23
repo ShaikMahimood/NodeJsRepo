@@ -17,10 +17,12 @@ async function createRec(req, res) {
       body: { orgid, dob },
     } = req;
 
-    const recparams = { rectype: config.organization.rectype, id: orgid };
-    await getRecord(recparams);
+    const recordParams = { rectype: config.organization.rectype, id: orgid };
+    const recordData = await getRecord(recordParams);
+    if(!recordData[0])
+      throw recordData[1];
 
-    await utils.validateDob(dob);
+    utils.validateDob(dob);
 
     req.body.rectype = config.patient.rectype;
     const patientInfo = await createRecord(req.body);

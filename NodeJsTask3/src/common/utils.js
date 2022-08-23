@@ -1,7 +1,8 @@
 const fs = require("fs");
 const config = require("../config/app.sepc.json");
 const emailvalidator = require("email-validator");
-const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const md5 = require("md5");
 
 const validatePhoneNumber = new RegExp(config.contact.phonenumberreqex);
 const validatefax = new RegExp(config.contact.faxregex);
@@ -39,16 +40,16 @@ class Utils {
   }
 
   //validateDob function is used validate the dateofbirth
-  async validateDob(dateofbirth) {
+  validateDob(dateofbirth) {
     if (!validatedob.test(dateofbirth))
       throw "Enter valid dateofbirth like YYYY-MM-DD format!";
     return true;
   }
 
   //validateAddress function is used validate the address
-  async validateAddress(params) {
+  validateAddress(params) {
     const { address, checkaddress } = params;
-    await checkaddress.forEach((element) => {
+    checkaddress.forEach((element) => {
       if (!address.hasOwnProperty(element))
         throw "address mustbe in a format like line1, line2, city, state, zip";
     });
@@ -56,38 +57,42 @@ class Utils {
   }
 
   //emailValidation function is used to validate the email
-  async validateEmail(email) {
+  validateEmail(email) {
     if (!emailvalidator.validate(email)) throw "Enter Valid email Id!";
     else return true;
   }
 
   //validatePhone function is used to validate the phone
-  async validatePhone(phone) {
+  validatePhone(phone) {
     if (!validatePhoneNumber.test(phone)) throw "Enter Valid Phone Number!";
     else return true;
   }
 
   //validateFax function is used to validate the fax
-  async validateFax(fax) {
+  validateFax(fax) {
     if (!validatefax.test(fax)) throw "Enter Valid Fax!";
     else return true;
   }
 
-  //generate encryptedPassword using bcrypt hash
-  async encryptedPassword(password) {
-    const saltRounds = 10;
-    if(!password) throw "Enter Password";
-    return new Promise(async (resolve, reject) => {
-      try {
-        bcrypt.hash(password, saltRounds, function (error, hash) {
-          if (error) reject(error);
-          resolve(hash);
-        });
-      } catch (error) {
-        
-        throw error;
-      }
+  //MD5 is used to convert tesyt into hash code
+  MD5(text) {
+    return md5(text);
+  }
+
+  jwtToken(params) {
+    const token = jwt.sign({ data: params }, config.jwt.secreteKey, {
+      expiresIn: config.jwt.expiresTime,
     });
+    return token;
+  }
+
+  validateToken(token) {
+    try {
+      const decoded = jwt.verify(token, config.jwt.secreteKey);
+      return decoded;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
