@@ -17,18 +17,23 @@ async function createRec(req, res) {
       body: { orgid, dob },
     } = req;
 
-    const recordParams = { rectype: config.organization.rectype, id: orgid };
-    const recordData = await getRecord(recordParams);
-    if(!recordData[0])
-      throw recordData[1];
+    const orgParams = {
+      rectype: config.organization.rectype,
+      id: orgid,
+      status: config.common.status.active,
+    };
+    const orgData = await getRecord(orgParams);
+    if (!orgData.length) throw "Invalid/InActive record!";
 
     utils.validateDob(dob);
+
+    req.body.createdBy = req.session.id;
 
     req.body.rectype = config.patient.rectype;
     const patientInfo = await createRecord(req.body);
     res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error });
+    res.status(400).json({ status: "Error :", error: error.message });
   }
 }
 
@@ -53,14 +58,14 @@ async function updateRec(req, res) {
     const payload = query;
     payload.rectype = config.patient.rectype;
     payload.body = req.body;
-    
+
     //check if status is inactive or not, if inactive then check inactivereason and dateinactivate
     if (req.body.status == config.common.status.inactive) {
       if (req.body.inactivereason)
         req.body.dateinactivate = utils.getCurrentDateTime();
       else throw "Enter inactivereason!";
     }
-    
+
     const patientInfo = await updateRecord(payload);
     res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {

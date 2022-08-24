@@ -14,7 +14,8 @@ function verifyUserToken(req, res, next) {
     if (token === "null" || !token)
       return res.status(401).send("Unauthorized request, Enter Token!");
 
-    utils.validateToken(token);
+    const userData = utils.validateToken(token);
+    req.session = userData;
     next();
   } catch (error) {
     res.status(400).send("Invalid Token");

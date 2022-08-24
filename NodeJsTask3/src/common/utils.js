@@ -80,7 +80,7 @@ class Utils {
   }
 
   jwtToken(params) {
-    const token = jwt.sign({ data: params }, config.jwt.secreteKey, {
+    const token = jwt.sign(params, config.jwt.secreteKey, {
       expiresIn: config.jwt.expiresTime,
     });
     return token;

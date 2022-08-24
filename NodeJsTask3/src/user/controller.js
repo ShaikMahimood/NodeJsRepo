@@ -7,6 +7,7 @@ const {
 } = require("../db/mongodb");
 
 const { Utils } = require("../common/utils");
+const { query } = require("express");
 
 const utils = new Utils();
 
@@ -17,10 +18,9 @@ async function createRec(req, res) {
       body: { orgid, dob },
     } = req;
 
-    const recordParams = { rectype: config.organization.rectype, id: orgid };
+    const recordParams = { rectype: config.organization.rectype, id: orgid, status: config.common.status.active };
     const recordData = await getRecord(recordParams);
-    if(!recordData[0])
-      throw recordData[1];
+    if (!recordData.length) throw "Invalid/InActive record!";
 
     utils.validateDob(dob);
 
@@ -64,8 +64,8 @@ async function updateRec(req, res) {
 //deleteRec function used to call deleteRecord from mongodb file and get deleted response or error
 async function deleteRec(req, res) {
   try {
-    const { query } = req;
-    const payload = query;
+    const { query:{ id } } = req;
+    const payload = id;
     payload.rectype = config.user.rectype;
     
     const userInfo = await deleteRecord(payload);

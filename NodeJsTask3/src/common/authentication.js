@@ -60,7 +60,7 @@ async function setAuth(payload) {
     const userParams = {
       rectype: refrectype,
       id: refid,
-      status: config.common.status.active,
+      status: config.common.status.active
     };
     const userData = await getRecord(userParams);
     if (!userData.length) throw "Invalid/InActive user!";

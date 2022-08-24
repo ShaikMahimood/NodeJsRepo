@@ -95,7 +95,7 @@ async function deleteRecord(item) {
       if(!result.deletedCount){
         throw `${rectype} Record is Not Found!`;
       }
-      resolve(result);
+      resolve(`${rectype} record is successfully deleted!`);
     } catch (error) {
       reject(error);
     }

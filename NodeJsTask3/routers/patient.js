@@ -11,7 +11,7 @@ const {
 
 const { verifyUserToken } = require('../src/middleware/auth');
 
-const { processFun } = require("../src/contact/contact");
+const { processFun } = require("../src/common/contact");
 
 const config = require("../src/config/app.sepc.json");
 

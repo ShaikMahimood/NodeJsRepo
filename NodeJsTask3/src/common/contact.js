@@ -8,7 +8,7 @@ const {
   deleteRecord,
 } = require("../db/mongodb");
 
-const { Utils } = require("../common/utils");
+const { Utils } = require("./utils");
 
 const utils = new Utils();
 
@@ -72,10 +72,9 @@ async function addAddress(contactBody) {
     if (![subType.home, subType.work].includes(subtype))
       throw "Invalid Subtype, Enter Subtype either home or work";
 
-    const recordParams = { rectype: refrectype, id: refid };
+    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
     const recordData = await getRecord(recordParams);
-    if(!recordData[0])
-      throw recordData[1];
+    if (!recordData.length) throw "Invalid/InActive record!";
 
     const addressparams = {
       address,
@@ -150,10 +149,9 @@ async function addEmail(contactBody) {
     //validating the email
     utils.validateEmail(email);
 
-    const recordParams = { rectype: refrectype, id: refid };
+    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
     const recordData = await getRecord(recordParams);
-    if(!recordData[0])
-      throw recordData[1];
+    if (!recordData.length) throw "Invalid/InActive record!";
 
     //get orgid from patient record
     if (refrectype == config.patient.rectype) {
@@ -218,10 +216,9 @@ async function addPhone(contactBody) {
     //validating the Phone
     utils.validatePhone(phone);
 
-    const recordParams = { rectype: refrectype, id: refid };
+    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
     const recordData = await getRecord(recordParams);
-    if(!recordData[0])
-      throw recordData[1];
+    if (!recordData.length) throw "Invalid/Inactive record!";
 
     //get orgid from patient record
     if (refrectype == config.patient.rectype) {
@@ -286,10 +283,9 @@ async function addFax(contactBody) {
     //validating the Fax
     utils.validateFax(fax);
 
-    const recordParams = { rectype: refrectype, id: refid };
+    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
     const recordData = await getRecord(recordParams);
-    if(!recordData[0])
-      throw recordData[1];
+    if (!recordData.length) throw "Invalid/InActive record!";
 
     //get orgid from patient record
     if (refrectype == config.patient.rectype) {
