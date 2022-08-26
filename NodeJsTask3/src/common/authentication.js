@@ -111,9 +111,8 @@ async function validateAuth(payload) {
     if (!userData.length) throw "Invalid/Inactive user!";
     const { id, orgid, firstname, lastname } = userData[0];
     const tokenParams = { id, orgid, firstname, lastname, username };
-
     const token = utils.jwtToken(tokenParams);
-    return {token};
+    return token;
   } catch (error) {
     throw error;
   }

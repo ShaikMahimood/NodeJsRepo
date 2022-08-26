@@ -5,8 +5,7 @@ const utils = new Utils();
 
 function verifyUserToken(req, res, next) {
   let token = req.headers.authorization;
-  if (!token)
-    return res.status(401).send("Access Denied/Unauthorized request");
+  if (!token) return res.status(401).send("Access Denied/Unauthorized request");
 
   try {
     token = token.split(" ")[1]; // Remove Bearer from string
@@ -14,12 +13,13 @@ function verifyUserToken(req, res, next) {
     if (token === "null" || !token)
       return res.status(401).send("Unauthorized request, Enter Token!");
 
+
     const userData = utils.validateToken(token);
     req.session = userData;
     next();
   } catch (error) {
     res.status(400).send("Invalid Token");
   }
-};
+}
 
 module.exports = { verifyUserToken };

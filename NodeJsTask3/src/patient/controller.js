@@ -17,17 +17,12 @@ async function createRec(req, res) {
       body: { orgid, dob },
     } = req;
 
-    const orgParams = {
-      rectype: config.organization.rectype,
-      id: orgid,
-      status: config.common.status.active,
-    };
+    const orgParams = { rectype: config.organization.rectype, id: orgid, status: config.common.status.active };
     const orgData = await getRecord(orgParams);
-    if (!orgData.length) throw "Invalid/InActive record!";
-
-    utils.validateDob(dob);
+    if (!orgData.length) throw "Invalid/Inactive record!";
 
     req.body.createdBy = req.session.id;
+    utils.validateDob(dob);
 
     req.body.rectype = config.patient.rectype;
     const patientInfo = await createRecord(req.body);
@@ -58,14 +53,14 @@ async function updateRec(req, res) {
     const payload = query;
     payload.rectype = config.patient.rectype;
     payload.body = req.body;
-
+    
     //check if status is inactive or not, if inactive then check inactivereason and dateinactivate
     if (req.body.status == config.common.status.inactive) {
       if (req.body.inactivereason)
         req.body.dateinactivate = utils.getCurrentDateTime();
       else throw "Enter inactivereason!";
     }
-
+    
     const patientInfo = await updateRecord(payload);
     res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {

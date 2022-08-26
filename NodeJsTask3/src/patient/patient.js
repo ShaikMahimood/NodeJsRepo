@@ -15,7 +15,6 @@ const patient = new Schema({
   language: {
     type: String,
     enum: config.patient.language,
-    required: true,
   },
   status: {
     type: String,
