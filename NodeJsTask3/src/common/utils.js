@@ -4,7 +4,6 @@ const emailvalidator = require("email-validator");
 const jwt = require("jsonwebtoken");
 const md5 = require("md5");
 
-const validatePhoneNumber = new RegExp(config.contact.phonenumberreqex);
 const validatefax = new RegExp(config.contact.faxregex);
 const validatedob = new RegExp(config.common.dobreqex);
 
@@ -62,11 +61,11 @@ class Utils {
     else return true;
   }
 
-  //validatePhone function is used to validate the phone
-  validatePhone(phone) {
-    if (!validatePhoneNumber.test(phone)) throw "Enter Valid Phone Number!";
-    else return true;
-  }
+  // //validatePhone function is used to validate the phone
+  // validatePhone(phone) {
+  //   if (!validatePhoneNumber.test(phone)) throw "Enter Valid Phone Number!";
+  //   else return true;
+  // }
 
   //validateFax function is used to validate the fax
   validateFax(fax) {

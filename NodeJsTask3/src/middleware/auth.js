@@ -3,6 +3,7 @@ const { Utils } = require("../common/utils");
 
 const utils = new Utils();
 
+//verifyUserToken function is used to validate the token and authorize that token
 function verifyUserToken(req, res, next) {
   let token = req.headers.authorization;
   if (!token) return res.status(401).send("Access Denied/Unauthorized request");
@@ -12,7 +13,6 @@ function verifyUserToken(req, res, next) {
 
     if (token === "null" || !token)
       return res.status(401).send("Unauthorized request, Enter Token!");
-
 
     const userData = utils.validateToken(token);
     req.session = userData;

@@ -43,6 +43,7 @@ function validation(validateParams) {
   }
 }
 
+//assignRoles function used to assign roles to different users
 async function assignRoles(payload) {
   try {
     const { roleid, refid, refrectype } = payload;
@@ -66,6 +67,7 @@ async function assignRoles(payload) {
   }
 }
 
+//updateRoles function used to update roles for users
 async function updateRoles(payload) {
   try {
     const { id, roleid } = payload;
@@ -78,6 +80,7 @@ async function updateRoles(payload) {
   }
 }
 
+//removeRoles function used to remove roles for users
 async function removeRoles(payload) {
   try {
     payload.rectype = config.assignedroles.rectype;

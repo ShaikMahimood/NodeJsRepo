@@ -214,7 +214,7 @@ async function addPhone(contactBody) {
       throw "Invalid Subtype, Enter Subtype either mobile or personal!";
 
     //validating the Phone
-    utils.validatePhone(phone);
+    //utils.validatePhone(phone);
 
     const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
     const recordData = await getRecord(recordParams);
