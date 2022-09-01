@@ -170,23 +170,27 @@ async function start(count) {
     userData.forEach((userObj) => {
       userList.push(parseUserRecord(userObj));
     });
+    const size = 2;
     const token = await getToken();
-    const recordData = userList.map(async (userObj) => {
-      const patientRecord = await createPatient(userObj.patient, token);
-      const contactRecord = await createContact(
-        patientRecord.id,
-        userObj.contact,
-        token
-      );
-      return contactRecord;
-    });
-    Promise.all(recordData).then((result) => {
-      console.log(result);
-      return result;
+
+    Array.from({ length: Math.ceil(userList.length / size) }, (data, index) => {
+      data = userList.slice(index * size, index * size + size);
+      const resultData = data.map(async (params) => {
+        const patientRecord = await createPatient(params.patient, token);
+        const contactRecord = await createContact(
+          patientRecord.id,
+          params.contact,
+          token
+        );
+        return contactRecord;
+      });
+      Promise.all(resultData).then((result) => {
+        console.log(result);
+      });
     });
   } catch (error) {
     console.log(error);
   }
 }
 
-start(2);
+start(10);
