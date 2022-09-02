@@ -23,6 +23,9 @@
     "user": {
         "rectype": "user"
     },
+    "token": {
+        "rectype": "token"
+    },
     "authentication": {
         "rectype": "authentication"
     },

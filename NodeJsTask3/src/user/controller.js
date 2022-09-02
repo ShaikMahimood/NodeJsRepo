@@ -7,7 +7,6 @@ const {
 } = require("../db/mongodb");
 
 const { Utils } = require("../common/utils");
-const { query } = require("express");
 
 const utils = new Utils();
 

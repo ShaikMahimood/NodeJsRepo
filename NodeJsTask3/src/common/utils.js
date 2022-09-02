@@ -61,12 +61,6 @@ class Utils {
     else return true;
   }
 
-  // //validatePhone function is used to validate the phone
-  // validatePhone(phone) {
-  //   if (!validatePhoneNumber.test(phone)) throw "Enter Valid Phone Number!";
-  //   else return true;
-  // }
-
   //validateFax function is used to validate the fax
   validateFax(fax) {
     if (!validatefax.test(fax)) throw "Enter Valid Fax!";
