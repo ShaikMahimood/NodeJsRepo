@@ -14,16 +14,21 @@
     "@aws-sdk/client-s3": "^3.142.0",
     "aws-sdk": "^2.1188.0",
     "axios": "^0.27.2",
+    "convert-excel-to-json": "^1.7.0",
     "date-and-time": "^2.4.1",
     "email-validator": "^2.0.4",
     "encrypt_decrypt": "^1.0.0",
+    "excel-date-to-js": "^1.1.5",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
+    "lodash.chunk": "^4.2.0",
     "md5": "^2.3.0",
     "mongodb": "^4.8.1",
     "multer-s3": "^3.0.1",
     "node-fetch": "^2.6.7",
+    "node-xlsx-parser": "^0.3.3",
     "nodemon": "^2.0.19",
-    "validate": "^5.2.0"
+    "validate": "^5.2.0",
+    "xlsx": "^0.18.5"
   }
 }

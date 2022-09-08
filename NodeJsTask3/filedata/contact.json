@@ -1,0 +1,271 @@
+[{
+  "_id": {
+    "$oid": "63188be0e9fc0866d93cd8ea"
+  },
+  "refid": "20220801000105",
+  "type": "address",
+  "subtype": "home",
+  "address": {
+    "line1": 3934,
+    "line2": "Trysilgata",
+    "city": "Sigerfjord",
+    "state": "Bergen",
+    "zip": "0589"
+  },
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:35.480Z",
+  "id": "20220801000111"
+},{
+  "_id": {
+    "$oid": "63188be0e9fc0866d93cd8eb"
+  },
+  "refid": "20220801000107",
+  "type": "address",
+  "subtype": "home",
+  "address": {
+    "line1": 2255,
+    "line2": "Chatham Road",
+    "city": "Whanganui",
+    "state": "Northland",
+    "zip": 90795
+  },
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:35.555Z",
+  "id": "20220801000112"
+},{
+  "_id": {
+    "$oid": "63188be0e9fc0866d93cd8ec"
+  },
+  "refid": "20220801000106",
+  "type": "address",
+  "subtype": "home",
+  "address": {
+    "line1": 5261,
+    "line2": "Økern Torgvei",
+    "city": "Årnset",
+    "state": "Hedmark",
+    "zip": "2918"
+  },
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:35.549Z",
+  "id": "20220801000113"
+},{
+  "_id": {
+    "$oid": "63188be0e9fc0866d93cd8ed"
+  },
+  "refid": "20220801000110",
+  "type": "address",
+  "subtype": "home",
+  "address": {
+    "line1": 6264,
+    "line2": "Rue des Ecrivains",
+    "city": "Niederönz",
+    "state": "Jura",
+    "zip": 3452
+  },
+  "refrectype": "patient",
+  "orgid": "2022080100000",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:35.832Z",
+  "id": "20220801000114"
+},{
+  "_id": {
+    "$oid": "63188be2e9fc0866d93cd8ee"
+  },
+  "refid": "20220801000105",
+  "type": "email",
+  "subtype": "primary",
+  "email": "milia.ek@example.com",
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:37.793Z",
+  "id": "20220801000115"
+},{
+  "_id": {
+    "$oid": "63188be2e9fc0866d93cd8ef"
+  },
+  "refid": "20220801000107",
+  "type": "email",
+  "subtype": "primary",
+  "email": "maria.harris@example.com",
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:37.769Z",
+  "id": "20220801000116"
+},{
+  "_id": {
+    "$oid": "63188be2e9fc0866d93cd8f0"
+  },
+  "refid": "20220801000106",
+  "type": "email",
+  "subtype": "primary",
+  "email": "ronja.stene@example.com",
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:37.789Z",
+  "id": "20220801000117"
+},{
+  "_id": {
+    "$oid": "63188be2e9fc0866d93cd8f1"
+  },
+  "refid": "20220801000110",
+  "type": "email",
+  "subtype": "primary",
+  "email": "daniele.lucas@example.com",
+  "refrectype": "patient",
+  "orgid": "2022080100000",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:38.162Z",
+  "id": "20220801000118"
+},{
+  "_id": {
+    "$oid": "63188be5e9fc0866d93cd8f2"
+  },
+  "refid": "20220801000109",
+  "type": "address",
+  "subtype": "home",
+  "address": {
+    "line1": 3635,
+    "line2": "Calle de Téllez",
+    "city": "San Sebastián",
+    "state": "Castilla y León",
+    "zip": 59726
+  },
+  "refrectype": "patient",
+  "orgid": "20220801000013",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:40.231Z",
+  "id": "20220801000119"
+},{
+  "_id": {
+    "$oid": "63188be5e9fc0866d93cd8f3"
+  },
+  "refid": "20220801000108",
+  "type": "address",
+  "subtype": "home",
+  "address": {
+    "line1": 5874,
+    "line2": "Continuación Zamora",
+    "city": "Asunción Nochixtlán",
+    "state": "Veracruz",
+    "zip": 62831
+  },
+  "refrectype": "patient",
+  "orgid": "20220801000013",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:40.233Z",
+  "id": "20220801000120"
+},{
+  "_id": {
+    "$oid": "63188be5e9fc0866d93cd8f4"
+  },
+  "refid": "20220801000107",
+  "type": "phone",
+  "subtype": "mobile",
+  "phone": "(693)-103-2249",
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:40.305Z",
+  "id": "20220801000121"
+},{
+  "_id": {
+    "$oid": "63188be5e9fc0866d93cd8f5"
+  },
+  "refid": "20220801000105",
+  "type": "phone",
+  "subtype": "mobile",
+  "phone": "26196940",
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:40.280Z",
+  "id": "20220801000122"
+},{
+  "_id": {
+    "$oid": "63188be5e9fc0866d93cd8f6"
+  },
+  "refid": "20220801000106",
+  "type": "phone",
+  "subtype": "mobile",
+  "phone": "33784213",
+  "refrectype": "patient",
+  "orgid": "20220801000041",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:40.300Z",
+  "id": "20220801000123"
+},{
+  "_id": {
+    "$oid": "63188be5e9fc0866d93cd8f7"
+  },
+  "refid": "20220801000110",
+  "type": "phone",
+  "subtype": "mobile",
+  "phone": "078 533 46 72",
+  "refrectype": "patient",
+  "orgid": "2022080100000",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:40.752Z",
+  "id": "20220801000124"
+},{
+  "_id": {
+    "$oid": "63188be7e9fc0866d93cd8f8"
+  },
+  "refid": "20220801000108",
+  "type": "email",
+  "subtype": "primary",
+  "email": "teresa.quinones@example.com",
+  "refrectype": "patient",
+  "orgid": "20220801000013",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:42.744Z",
+  "id": "20220801000125"
+},{
+  "_id": {
+    "$oid": "63188be7e9fc0866d93cd8f9"
+  },
+  "refid": "20220801000109",
+  "type": "email",
+  "subtype": "primary",
+  "email": "sara.pena@example.com",
+  "refrectype": "patient",
+  "orgid": "20220801000013",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:42.722Z",
+  "id": "20220801000126"
+},{
+  "_id": {
+    "$oid": "63188beae9fc0866d93cd8fa"
+  },
+  "refid": "20220801000109",
+  "type": "phone",
+  "subtype": "mobile",
+  "phone": "948-845-294",
+  "refrectype": "patient",
+  "orgid": "20220801000013",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:45.277Z",
+  "id": "20220801000127"
+},{
+  "_id": {
+    "$oid": "63188beae9fc0866d93cd8fb"
+  },
+  "refid": "20220801000108",
+  "type": "phone",
+  "subtype": "mobile",
+  "phone": "(632) 993 5504",
+  "refrectype": "patient",
+  "orgid": "20220801000013",
+  "rectype": "contact",
+  "created": "2022-09-07T12:17:45.313Z",
+  "id": "20220801000128"
+}]

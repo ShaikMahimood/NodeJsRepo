@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 const axios = require("axios");
 const datechange = require("date-and-time");
+//const chunk = require("lodash.chunk");
 
 const config = require("../config/app.sepc.json");
 
@@ -14,7 +15,7 @@ async function getUserData(count) {
     const users = await res.json();
     return users.results;
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error);
   }
 }
 
@@ -172,25 +173,34 @@ async function start(count) {
     });
     const size = 2;
     const token = await getToken();
+    const patientPromises = userList.map((userRecord) => {
+      return processRecords(userRecord, token);
+    });
 
-    Array.from({ length: Math.ceil(userList.length / size) }, (data, index) => {
-      data = userList.slice(index * size, index * size + size);
-      const resultData = data.map(async (params) => {
-        const patientRecord = await createPatient(params.patient, token);
-        const contactRecord = await createContact(
-          patientRecord.id,
-          params.contact,
-          token
-        );
-        return contactRecord;
-      });
-      Promise.all(resultData).then((result) => {
+    for (i = 0; i < patientPromises.length; i = i + size) {
+      const recordData = patientPromises.slice(i, i + size);
+      Promise.all(recordData).then((result) => {
         console.log(result);
       });
-    });
+    }
   } catch (error) {
     console.log(error);
   }
 }
 
-start(10);
+function processRecords(userRecord, token) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const patientRecord = await createPatient(userRecord.patient, token);
+      const contactRecord = await createContact(
+        patientRecord.id,
+        userRecord.contact,
+        token
+      );
+      resolve(contactRecord);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+start(6);

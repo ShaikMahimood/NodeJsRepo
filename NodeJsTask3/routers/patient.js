@@ -9,9 +9,9 @@ const {
   deleteRec,
 } = require("../src/patient/controller");
 
-const { verifyUserToken } = require('../src/middleware/auth');
+const { verifyUserToken } = require("../src/middleware/auth");
 
-const { processFun } = require("../src/common/contact");
+const { processFun, getContact } = require("../src/common/contact");
 
 const config = require("../src/config/app.sepc.json");
 
@@ -23,9 +23,8 @@ router.put("/update", verifyUserToken, updateRec);
 
 router.delete("/delete", verifyUserToken, deleteRec);
 
-router.post('/contact', verifyUserToken, async(req, res)=>{
-  try
-  {
+router.post("/contact", verifyUserToken, async (req, res) => {
+  try {
     const __action = req.body.__action;
     const processFunction = processFun(__action);
     const contactBody = req.body.body || {};
@@ -37,4 +36,5 @@ router.post('/contact', verifyUserToken, async(req, res)=>{
   }
 });
 
+router.get("/contact/get", verifyUserToken, getContact);
 module.exports = router;

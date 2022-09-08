@@ -15,14 +15,8 @@ const tokenSchema = new Schema({
 function Validation(params) {
   const { refid, token, refrectype } = params;
 
-  const tokenParams = {
-    refid,
-    token,
-    refrectype,
-  };
-
   //check validate conditions and send next() otherwise send error
-  let errors = tokenSchema.validate(tokenParams);
+  let errors = tokenSchema.validate(params);
   if (errors.length) {
     errors = errors.map((eRec) => {
       return { path: eRec.path, message: eRec.message };
@@ -37,7 +31,7 @@ function Validation(params) {
 async function addToken(payload) {
   try {
     const { refid, refrectype, token } = payload;
-    validate(payload);
+    Validation(payload);
     payload.rectype = config.token.rectype;
     // remove existing tokens
     const tokenParams = { rectype: payload.rectype, refid };

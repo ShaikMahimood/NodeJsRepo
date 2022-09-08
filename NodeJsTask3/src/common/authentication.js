@@ -113,7 +113,7 @@ async function validateAuth(payload) {
     const tokenParams = { id, orgid, firstname, lastname, username };
     const token = utils.jwtToken(tokenParams);
     const tokenRecordparams = { refid, token, refrectype };
-    addToken(tokenRecordparams);
+    await addToken(tokenRecordparams);
     return token;
   } catch (error) {
     throw error;

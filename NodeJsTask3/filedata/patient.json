@@ -1,0 +1,97 @@
+[{
+  "_id": {
+    "$oid": "63188bdde9fc0866d93cd8e4"
+  },
+  "gender": "female",
+  "firstname": "Milia",
+  "lastname": "Ek",
+  "title": "Mrs",
+  "dob": "1994-01-11",
+  "age": 28,
+  "orgid": "20220801000041",
+  "status": "active",
+  "createdBy": "20220801000064",
+  "rectype": "patient",
+  "created": "2022-09-07T12:17:33.232Z",
+  "id": "20220801000105"
+},{
+  "_id": {
+    "$oid": "63188bdde9fc0866d93cd8e5"
+  },
+  "gender": "female",
+  "firstname": "Ronja",
+  "lastname": "Stene",
+  "title": "Miss",
+  "dob": "1986-04-29",
+  "age": 36,
+  "orgid": "20220801000041",
+  "status": "active",
+  "createdBy": "20220801000064",
+  "rectype": "patient",
+  "created": "2022-09-07T12:17:33.258Z",
+  "id": "20220801000106"
+},{
+  "_id": {
+    "$oid": "63188bdee9fc0866d93cd8e6"
+  },
+  "gender": "female",
+  "firstname": "Maria",
+  "lastname": "Harris",
+  "title": "Ms",
+  "dob": "1982-09-22",
+  "age": 39,
+  "orgid": "20220801000041",
+  "status": "active",
+  "createdBy": "20220801000064",
+  "rectype": "patient",
+  "created": "2022-09-07T12:17:33.265Z",
+  "id": "20220801000107"
+},{
+  "_id": {
+    "$oid": "63188bdee9fc0866d93cd8e8"
+  },
+  "gender": "female",
+  "firstname": "Sara",
+  "lastname": "Peña",
+  "title": "Ms",
+  "dob": "1987-10-28",
+  "age": 34,
+  "orgid": "20220801000013",
+  "status": "active",
+  "createdBy": "20220801000064",
+  "rectype": "patient",
+  "created": "2022-09-07T12:17:33.464Z",
+  "id": "20220801000109"
+},{
+  "_id": {
+    "$oid": "63188bdee9fc0866d93cd8e7"
+  },
+  "gender": "female",
+  "firstname": "Teresa",
+  "lastname": "Quiñones",
+  "title": "Miss",
+  "dob": "1951-06-27",
+  "age": 71,
+  "orgid": "20220801000013",
+  "status": "active",
+  "createdBy": "20220801000064",
+  "rectype": "patient",
+  "created": "2022-09-07T12:17:33.472Z",
+  "id": "20220801000108"
+},{
+  "_id": {
+    "$oid": "63188bdee9fc0866d93cd8e9"
+  },
+  "gender": "male",
+  "firstname": "Daniele",
+  "lastname": "Lucas",
+  "title": "Monsieur",
+  "dob": "1997-06-01",
+  "age": 25,
+  "orgid": "2022080100000",
+  "status": "active",
+  "createdBy": "20220801000064",
+  "rectype": "patient",
+  "created": "2022-09-07T12:17:33.442Z",
+  "id": "20220801000110"
+}]

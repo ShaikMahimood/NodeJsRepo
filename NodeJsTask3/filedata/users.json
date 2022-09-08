@@ -1,0 +1,70 @@
+{
+  {
+    gender: 'male',
+    firstname: 'Benjamin',
+    lastname: 'Davies',
+    title: 'Mr',
+    dob: '1979-07-10',
+    age: 43,
+    email: 'benjamin.davies@example.com',
+    phone: '(328)-591-1342',
+    address: {
+      line1: 1274,
+      line2: 'Cavendish Drive',
+      city: 'Wellington',
+      state: 'Taranaki',
+      zip: 53464
+    }
+  }
+  {
+    gender: 'female',
+    firstname: 'Veslemøy',
+    lastname: 'Ivanova',
+    title: 'Ms',
+    dob: '1983-02-24',
+    age: 39,
+    email: 'veslemoy.ivanova@example.com',
+    phone: '73622402',
+    address: {
+      line1: 6241,
+      line2: 'Balchens gate',
+      city: 'Tonstad',
+      state: 'Hedmark',
+      zip: '3666'
+    }
+  }
+  {
+    gender: 'female',
+    firstname: 'Donna',
+    lastname: 'Arnold',
+    title: 'Miss',
+    dob: '1967-06-20',
+    age: 55,
+    email: 'donna.arnold@example.com',
+    phone: '016977 0958',
+    address: {
+      line1: 8561,
+      line2: 'South Street',
+      city: 'York',
+      state: 'Borders',
+      zip: 'AJ6N 4HT'
+    }
+  }
+    {
+    gender: 'male',
+    firstname: 'Gianfranco',
+    lastname: 'Rey',
+    title: 'Monsieur',
+    dob: '1963-08-03',
+    age: 59,
+    email: 'gianfranco.rey@example.com',
+    phone: '077 761 46 12',
+    address: {
+      line1: 195,
+      line2: 'Rue Dumenge',
+      city: 'Les Brenets',
+      state: 'Appenzell Ausserrhoden',
+      zip: 5330
+    }
+  }
+}

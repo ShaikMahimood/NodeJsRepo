@@ -72,7 +72,11 @@ async function addAddress(contactBody) {
     if (![subType.home, subType.work].includes(subtype))
       throw "Invalid Subtype, Enter Subtype either home or work";
 
-    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
+    const recordParams = {
+      rectype: refrectype,
+      id: refid,
+      status: config.common.status.active,
+    };
     const recordData = await getRecord(recordParams);
     if (!recordData.length) throw "Invalid/InActive record!";
 
@@ -149,7 +153,11 @@ async function addEmail(contactBody) {
     //validating the email
     utils.validateEmail(email);
 
-    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
+    const recordParams = {
+      rectype: refrectype,
+      id: refid,
+      status: config.common.status.active,
+    };
     const recordData = await getRecord(recordParams);
     if (!recordData.length) throw "Invalid/InActive record!";
 
@@ -213,7 +221,11 @@ async function addPhone(contactBody) {
     if (![subType.mobile, subType.personal].includes(subtype))
       throw "Invalid Subtype, Enter Subtype either mobile or personal!";
 
-    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
+    const recordParams = {
+      rectype: refrectype,
+      id: refid,
+      status: config.common.status.active,
+    };
     const recordData = await getRecord(recordParams);
     if (!recordData.length) throw "Invalid/Inactive record!";
 
@@ -280,7 +292,11 @@ async function addFax(contactBody) {
     //validating the Fax
     utils.validateFax(fax);
 
-    const recordParams = { rectype: refrectype, id: refid, status: config.common.status.active };
+    const recordParams = {
+      rectype: refrectype,
+      id: refid,
+      status: config.common.status.active,
+    };
     const recordData = await getRecord(recordParams);
     if (!recordData.length) throw "Invalid/InActive record!";
 
@@ -330,6 +346,19 @@ async function removeFax(contactBody) {
   }
 }
 
+async function getContact(req, res) {
+  try {
+    const { query } = req;
+    const payload = query;
+    payload.rectype = config.contact.rectype;
+    const contactInfo = await getRecord(payload);
+
+    res.status(200).json({ status: "Success", results: contactInfo });
+  } catch (error) {
+    res.status(400).json({ status: "Error :", error: error });
+  }
+}
+
 //processFun function used to valid the action and send valid function
 function processFun(__action) {
   const functionMapping = {
@@ -354,4 +383,5 @@ function processFun(__action) {
 }
 module.exports = {
   processFun,
+  getContact
 };
