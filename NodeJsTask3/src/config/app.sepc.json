@@ -92,6 +92,6 @@
     },
     "jwt": {
         "secreteKey": "My Jwt Token Secrete Key",
-        "expiresTime": "100000"
+        "expiresTime": "2h"
     }
 }

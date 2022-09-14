@@ -159,7 +159,7 @@ async function createContact(refid, data, token) {
     }
     return contactRecord;
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error);
   }
 }
 
@@ -205,4 +205,4 @@ async function start(count) {
   }
 }
 
-start(50);
+start(10);
