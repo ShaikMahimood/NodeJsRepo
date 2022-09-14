@@ -159,35 +159,11 @@ async function createContact(refid, data, token) {
     }
     return contactRecord;
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
   }
 }
 
-//create patient record and contact record
-async function start(count) {
-  try {
-    const userData = await getUserData(count);
-    const userList = [];
-    userData.forEach((userObj) => {
-      userList.push(parseUserRecord(userObj));
-    });
-    const size = 2;
-    const token = await getToken();
-    const patientPromises = userList.map((userRecord) => {
-      return processRecords(userRecord, token);
-    });
-
-    for (i = 0; i < patientPromises.length; i = i + size) {
-      const recordData = patientPromises.slice(i, i + size);
-      Promise.all(recordData).then((result) => {
-        console.log(result);
-      });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
+//processRecords used to get patient record and patient contact record
 function processRecords(userRecord, token) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -203,4 +179,30 @@ function processRecords(userRecord, token) {
     }
   });
 }
-start(6);
+
+//create patient record and contact record
+async function start(count) {
+  try {
+    const userData = await getUserData(count);
+    const userList = [];
+    userData.forEach((userObj) => {
+      userList.push(parseUserRecord(userObj));
+    });
+    const size = 10;
+    const token = await getToken();
+    const patientPromises = userList.map((userRecord) => {
+      return processRecords(userRecord, token);
+    });
+
+    for (i = 0; i < patientPromises.length; i = i + size) {
+      const recordData = patientPromises.slice(i, i + size);
+      Promise.all(recordData).then((result) => {
+        return result;
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+start(50);

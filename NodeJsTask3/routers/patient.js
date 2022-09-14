@@ -32,7 +32,7 @@ router.post("/contact", verifyUserToken, async (req, res) => {
     const result = await processFunction(contactBody);
     res.status(200).json({ status: "Success", results: result });
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error });
+    res.status(400).json({ status: "Error :", error: error.message });
   }
 });
 

@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "62f3935848c1a1f5960898d6"
+  },
+  "code": "00A1",
+  "name": "innominds",
+  "type": "backoffice",
+  "status": "active",
+  "rectype": "organization",
+  "created": "2022-08-10T11:15:35.463Z",
+  "id": "2022080100000"
+},{
+  "_id": {
+    "$oid": "62f49777e17612c42f7a3dbe"
+  },
+  "rectype": "organization",
+  "code": "0021A",
+  "name": "sri sai",
+  "type": "clinic",
+  "status": "active",
+  "created": "2022-08-11T05:45:26.765Z",
+  "id": "20220801000013"
+},{
+  "_id": {
+    "$oid": "62ff3cd5adebf9751913a664"
+  },
+  "code": "00B2",
+  "name": "unext",
+  "type": "lab",
+  "status": "active",
+  "rectype": "organization",
+  "created": "2022-08-19T07:33:40.900Z",
+  "id": "20220801000041"
+},{
+  "_id": {
+    "$oid": "6318683dd9641cf166d52e45"
+  },
+  "name": "ESI",
+  "code": "esi",
+  "type": "lab",
+  "status": "active",
+  "rectype": "organization",
+  "created": "2022-09-07T09:45:32.633Z",
+  "id": "20220801000103"
+},{
+  "_id": {
+    "$oid": "63188d3bf03d07abe822e6be"
+  },
+  "name": "CARE",
+  "code": "care",
+  "type": "lab",
+  "status": "active",
+  "rectype": "organization",
+  "created": "2022-09-07T12:23:22.586Z",
+  "id": "20220801000137"
+}]

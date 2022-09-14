@@ -1,4 +1,3 @@
-const { validate } = require("email-validator");
 const Schema = require("validate");
 const config = require("../config/app.sepc.json");
 const { createRecord, getRecord, deleteRecord } = require("../db/mongodb");

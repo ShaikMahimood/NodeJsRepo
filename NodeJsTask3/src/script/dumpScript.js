@@ -46,52 +46,29 @@ async function getOfficename(id) {
   }
 }
 
-//getPatientContact used to get conatct record for patient
-async function getPatientContact(refid, token) {
-  try {
-    const contactRecord = await axios.get(api + "patient/contact/get", {
-      params: { refid },
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const contactdata = {};
-    const contactData = contactRecord.data.results;
-    if (contactData.length) {
-      contactData.map((data) => {
-        if (data.address) contactdata["address"] = data.address;
-        if (data.email) contactdata["email"] = data.email;
-        if (data.phone) contactdata["phone"] = data.phone;
-      });
-    }
-    return contactdata;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 //parsingData is used to parse the patient data
 async function parsingData() {
   return new Promise(async (resolve, reject) => {
     try {
       const token = await getToken();
       const patientData = await getPatient(token);
+      const contactData = await getcontactData(token);
       if (patientData.length) {
+        const orgData = await getOrgNameAndId(patientData);
         const dataList = patientData.map(async (data) => {
           const { id, orgid, gender, firstname, lastname, title, dob, age } =
             data;
-          const officename = await getOfficename(orgid);
-          const contactData = await getPatientContact(id, token);
-          const { email, phone, address } = contactData;
-
+          const officedata = orgData.find((x) => x.id == orgid);
+          const officename = officedata.name;
+          if (!contactData.hasOwnProperty(id))
+            throw `contact Not Found for this patient ${id}`;
+          const {
+            email,
+            phone,
+            address: { line1, line2, city, state, zip },
+          } = contactData[id];
           const addressdata =
-            address.line1 +
-            "," +
-            address.line2 +
-            "," +
-            address.city +
-            "," +
-            address.state +
-            "," +
-            address.zip;
+            line1 + "," + line2 + "," + city + "," + state + "," + zip;
           const dataParams = {
             title,
             firstname,
@@ -116,15 +93,61 @@ async function parsingData() {
   });
 }
 
+//getOrgNameAndId used to get organization name and id from organization record
+async function getOrgNameAndId(users) {
+  return new Promise((resolve, reject) => {
+    try {
+      const officeid = [];
+      users.map((user) => {
+        if (!officeid.includes(user.orgid)) officeid.push(user.orgid);
+      });
+      const officeData = officeid.map(async (id) => {
+        const name = await getOfficename(id);
+        if (name) return { name, id };
+      });
+      Promise.all(officeData).then((data) => {
+        resolve(data);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+//getcontactData used to get contact for patient 
+async function getcontactData(token) {
+  try {
+    const contactRec = await axios.get(api + "patient/contact/get", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const contactInfo = contactRec.data.results;
+    var contactparams = {};
+    if (contactInfo.length) {
+      contactInfo.map((userObj) => {
+        if (!contactparams.hasOwnProperty(userObj.refid))
+          contactparams[userObj.refid] = {};
+        if (Object.keys(contactparams).includes(userObj.refid))
+          if (userObj.address)
+            contactparams[userObj.refid]["address"] = userObj.address;
+          else if (userObj.phone)
+            contactparams[userObj.refid]["phone"] = userObj.phone;
+          else if (userObj.email)
+            contactparams[userObj.refid]["email"] = userObj.email;
+      });
+    }
+    return contactparams;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 //createPatientExcelData used to upload patient record in excel sheet
 async function createPatientExcelData() {
   try {
     const sheetParams = await parsingData();
-    console.log(sheetParams);
     const ws = reader.utils.json_to_sheet(sheetParams);
     const file = reader.utils.book_new();
     reader.utils.book_append_sheet(file, ws, "patientData");
-
     reader.writeFile(file, "../../filedata/patient.xlsx");
   } catch (error) {
     console.log(error);

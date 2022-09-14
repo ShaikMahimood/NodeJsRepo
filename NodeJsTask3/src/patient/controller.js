@@ -28,7 +28,7 @@ async function createRec(req, res) {
     const patientInfo = await createRecord(req.body);
     res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error });
+    res.status(400).json({ status: "Error :", error: error});
   }
 }
 

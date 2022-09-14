@@ -1,11 +1,11 @@
 const axios = require("axios");
-const { getJsDateFromExcel } = require("excel-date-to-js");
 const config = require("../config/app.sepc.json");
 
 const api = "http://localhost:8008/";
 
 const reader = require("xlsx");
 
+var officeData;
 //get user data from Excel file
 function getUserData() {
   // Reading our Excel file
@@ -13,7 +13,7 @@ function getUserData() {
 
   const users = [];
 
-  //get excel sheetNames
+  //get excel sheetNamess
   const sheets = file.SheetNames;
 
   //get excel sheet data, parse the data and push to users
@@ -41,18 +41,16 @@ function parseUserRecord(userParams) {
     address,
   } = userParams;
 
-  const date = getJsDateFromExcel(dob).toISOString().split("T")[0];
-  const data = address.split(",");
+  const [line1, line2, city, state, zip] = address.split(",");
   const addressdata = {
-    line1: data[0],
-    line2: data[1],
-    city: data[2],
-    state: data[3],
-    zip: data[4],
+    line1,
+    line2,
+    city,
+    state,
+    zip,
   };
-
   const responseData = {
-    patient: { gender, firstname, lastname, title, dob: date, age },
+    patient: { gender, firstname, lastname, title, dob, age },
     contact: { email, phone, address: addressdata },
     officename,
   };
@@ -74,7 +72,7 @@ async function getToken() {
 }
 
 //getOrganizationRecord used to get Organization Record
-async function getOrganizationRandomId(name) {
+async function getOrganizationId(name) {
   try {
     const orgRecordInfo = await axios.get(api + "organization/get", {
       params: { name },
@@ -86,8 +84,10 @@ async function getOrganizationRandomId(name) {
     }
     const officeParams = {
       name,
-      code: "Ab01",
-      type: "lab",
+      code: name.replace(/\s+/g, "_").toLowerCase(),
+      type: config.organization.type[
+        Math.floor(Math.random() * config.organization.type.length)
+      ],
       status: config.common.status.active,
     };
     const officeRecord = await axios.post(
@@ -101,10 +101,32 @@ async function getOrganizationRandomId(name) {
   }
 }
 
+//getOrgNameAndId to get organization name and id form organization record
+async function getOrgNameAndId(users) {
+  return new Promise((resolve, reject) => {
+    try {
+      const officename = [];
+      users.map((user) => {
+        if (!officename.includes(user.officename))
+          officename.push(user.officename);
+      });
+      const officeData = officename.map(async (name) => {
+        const id = await getOrganizationId(name);
+        if (id) return { name, id };
+      });
+      Promise.all(officeData).then((data) => {
+        resolve(data);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 //createPatient used to create patient record with patient create api
-async function createPatient(patientParams, officename, token) {
+async function createPatient(patientParams, orgid, token) {
   try {
-    patientParams.orgid = await getOrganizationRandomId(officename);
+    patientParams.orgid = orgid;
     patientParams.status = config.common.status.active;
     const patientRecord = await axios.post(
       api + "patient/create",
@@ -186,34 +208,17 @@ async function createContact(refid, data, token) {
   }
 }
 
-//create patient record and contact record
-async function start(count) {
-  try {
-    const userList = getUserData(count);
-    const size = 1;
-    const token = await getToken();
-    const patientPromises = userList.map((userRecord) => {
-      return processRecords(userRecord, token);
-    });
-
-    for (i = 0; i < patientPromises.length; i = i + size) {
-      const recordData = patientPromises.slice(i, i * size + size);
-      Promise.all(recordData).then((result) => {
-        console.log(result);
-      });
-    }
-  } catch (error) {
-    console.log(error.response.data);
-  }
-}
-
 //processRecords used to get create record data
 function processRecords(userRecord, token) {
   return new Promise(async (resolve, reject) => {
     try {
+      const officedata = officeData.find(
+        (x) => x.name == userRecord.officename
+      );
+      if (!officedata) throw "officename not found!";
       const patientRecord = await createPatient(
         userRecord.patient,
-        userRecord.officename,
+        officedata.id,
         token
       );
       const contactRecord = await createContact(
@@ -226,6 +231,28 @@ function processRecords(userRecord, token) {
       reject(error);
     }
   });
+}
+
+//create patient record and contact record
+async function start() {
+  try {
+    const userList = getUserData();
+    const size = 5;
+    const token = await getToken();
+    officeData = await getOrgNameAndId(userList);
+    const patientPromises = userList.map((userRecord) => {
+      return processRecords(userRecord, token);
+    });
+
+    for (i = 0; i < patientPromises.length; i = i + size) {
+      const recordData = patientPromises.slice(i, i + size);
+      Promise.all(recordData).then((result) => {
+        console.log(result);
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 start();
