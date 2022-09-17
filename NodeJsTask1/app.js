@@ -1,12 +1,12 @@
-import express, { json } from "express";
+const express = require("express");
 
 const app = express();
 
 //import user Router from router folder
-import usersRouter from "./router/users.js";
+const usersRouter =  require("./router/users.js");
 
 //add json() middleware to use json format
-app.use(json());
+app.use(express.json());
 
 //Configure router so all routes are prefixed with /Users
 app.use("/Users", usersRouter);

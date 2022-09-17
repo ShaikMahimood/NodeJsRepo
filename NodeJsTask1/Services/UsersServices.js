@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
 //getUsers async function is used to get data from Randomuser
 async function getUsers(count) {
@@ -8,6 +8,6 @@ async function getUsers(count) {
 }
 
 //export the usersServices
-export const usersServices = {
-  getUsers: getUsers,
+module.exports = {
+  getUsers
 };

@@ -1,12 +1,12 @@
-import { Router } from "express";
+const { Router } = require("express");
 
 //import parsingJsonData from helpers to parse the json data
-import { userDataHelpers } from "../helpers/UsersDatahelpers.js";
+const { userDataHelpers } = require("../helpers/UsersDatahelpers.js");
 
 const router = Router();
 
 //import usersServices from the Services to use User operations
-import { usersServices } from "../Services/UsersServices.js";
+const { usersServices } = require("../Services/UsersServices.js");
 
 //get user data from usersServices getusers function
 router.get("/list", async (request, response) => {
@@ -37,4 +37,4 @@ router.get("/list", async (request, response) => {
     });
 });
 
-export default router;
+module.exports = router;

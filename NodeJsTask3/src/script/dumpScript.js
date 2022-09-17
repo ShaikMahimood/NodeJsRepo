@@ -48,10 +48,10 @@ async function getOrganizationRecord() {
 async function getOrgNameAndId() {
   try {
     const orgRec = await getOrganizationRecord();
-    const orgData = [];
+    const orgData = {};
     orgRec.map((userObj) => {
       const { name, id } = userObj;
-      orgData.push({ name, id });
+      orgData[id] = name;
     });
     return orgData;
   } catch (error) {
@@ -93,8 +93,7 @@ function parsingData() {
       const dataList = patientData.map((data) => {
         const { id, orgid, gender, firstname, lastname, title, dob, age } =
           data;
-        const officedata = orgData.find((x) => x.id == orgid);
-        const officename = officedata.name;
+        const officename = orgData[orgid];
         if (!contactData[id]) throw `contact Not Found for this patient ${id}`;
         const {
           email,

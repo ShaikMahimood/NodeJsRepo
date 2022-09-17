@@ -8,7 +8,7 @@ const reader = require("xlsx");
 //get user data from Excel file
 function getUserData() {
   // Reading our Excel file
-  const file = reader.readFile("../../filedata/patient.xlsx");
+  const file = reader.readFile("../../filedata/users.xlsx");
 
   const users = [];
 
@@ -83,49 +83,40 @@ async function getOrganizationRecord() {
 
 //createOrganization to create organization record
 async function createOrganization(name) {
-  try {
-    const officeParams = {
-      name,
-      code: name.replace(/\s+/g, "_").toLowerCase(),
-      type: config.organization.type[
-        Math.floor(Math.random() * config.organization.type.length)
-      ],
-      status: config.common.status.active,
-    };
-    const officeRecord = await axios.post(
-      api + "organization/create",
-      officeParams
-    );
-    const orgRecord = officeRecord.data.results;
-    return orgRecord.id;
-  } catch (error) {
-    console.log(error);
-  }
+  const officeParams = {
+    name,
+    code: name.replace(/\s+/g, "_").toLowerCase(),
+    type: config.organization.type[
+      Math.floor(Math.random() * config.organization.type.length)
+    ],
+    status: config.common.status.active,
+  };
+  const officeRecord = axios.post(api + "organization/create", officeParams);
+
+  return officeRecord;
 }
 
 //getOrgNameAndId to get organization name and id from organization record
 async function getOrgNameAndId(users) {
   try {
-    const office = [];
-    users.map((userObj) => {
-      if (!office.includes(userObj.officename)) {
-        office.push(userObj.officename);
-      }
-    });
     const orgRec = await getOrganizationRecord();
-    const orgData = [];
+    const existingOffices = {};
     orgRec.map((userObj) => {
       const { name, id } = userObj;
-      orgData.push({ name, id });
+      existingOffices[name] = id;
     });
-    office.map(async (name) => {
-      const Data = orgData.find((x) => x.name === name);
-      if (!Data) {
-        const id = await createOrganization(name);
-        orgData.push({ id, name });
-      }
+    const officestocreate = [];
+    users.map((userObj) => {
+      const { officename } = userObj;
+      if (!existingOffices[officename] && !officestocreate.includes(officename))
+        officestocreate.push(officename);
     });
-    return orgData;
+    const officePromises = officestocreate.map(async (name) => {
+      return createOrganization(name);
+    });
+    await Promise.all(officePromises);
+    const orgRecData = await getOrganizationRecord();
+    return orgRecData;
   } catch (error) {
     console.log(error);
   }
@@ -220,10 +211,10 @@ async function createContact(refid, data, token) {
 function processRecords(userRecord, officeData, token) {
   return new Promise(async (resolve, reject) => {
     try {
-      const data = officeData.find((x) => x.name == userRecord.officename);
+      const orgid = officeData[userRecord.officename];
       const patientRecord = await createPatient(
         userRecord.patient,
-        data.id,
+        orgid,
         token
       );
       const contactRecord = await createContact(
@@ -245,8 +236,13 @@ async function start() {
     const size = 5;
     const token = await getToken();
     const officeData = await getOrgNameAndId(userList);
+    const officeNameMapping = {};
+    officeData.forEach((office) => {
+      const { id, name } = office;
+      officeNameMapping[name] = id;
+    });
     const patientPromises = userList.map((userRecord) => {
-      return processRecords(userRecord, officeData, token);
+      return processRecords(userRecord, officeNameMapping, token);
     });
 
     for (i = 0; i < patientPromises.length; i = i + size) {
