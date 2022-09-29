@@ -4,7 +4,7 @@ const config = require("../config/app.sepc.json");
 const { Utils } = require("../common/utils");
 
 const utils = new Utils();
-
+let mongoClient;
 //dbconnection function is used to connect with mongodb and return database
 async function dbConnection() {
   //connection url
@@ -13,17 +13,17 @@ async function dbConnection() {
   const client = new MongoClient(url);
   try {
     // Connect to the MongoDB
-    let mongoClient = await client.connect();
+    mongoClient = await client.connect();
+    const db = mongoClient.db(config.db.dbname);
     console.log("db Connected!");
-    return mongoClient;
+    return db;
   } catch (error) {
     throw error;
   }
 }
 //getNextSequenceValue is used to get next value for id
 async function getNextSequenceValue() {
-  const mongoClient = await dbConnection();
-  const db = mongoClient.db(config.db.dbname); //connect to mongodb and get databases
+  const db = await dbConnection(); //connect to mongodb and get databases
 
   const collname = config.sequence.rectype; //take collection name from config file
   const sequenceDoc = await db
@@ -34,16 +34,17 @@ async function getNextSequenceValue() {
 
 //createRecord function is used to insert record into collection with req body
 async function createRecord(item) {
-  let mongoClient;
   return new Promise(async (resolve, reject) => {
     try {
       item.created = utils.getCurrentDateTime(); //getCurrentDateTime() is used to get current data and time from Utils file
 
       const collname = item.rectype; //collection name
-      mongoClient = await dbConnection();
-      const db = mongoClient.db(config.db.dbname);
+      
+      const db = await dbConnection();
+
       item.id = await getNextSequenceValue(); //find new value for id
-      const newRec = await db.collection(collname).insertOne(item); //insert record into database
+
+      await db.collection(collname).insertOne(item); //insert record into database
       resolve(item);
     } catch (error) {
       reject(error);
@@ -55,12 +56,10 @@ async function createRecord(item) {
 
 //getRecord function is used to get data from collection
 async function getRecord(item) {
-  let mongoClient;
   return new Promise(async (resolve, reject) => {
     try {
       const { rectype, ...restParams } = item; //pass rectype and restparams to get data from collections
-      mongoClient = await dbConnection();
-      const db = mongoClient.db(config.db.dbname);
+      const db = await dbConnection();
       const collname = rectype;
       const recList = await db.collection(collname).find(restParams).toArray(); //get data from requested parameters
       resolve(recList); //get data from database
@@ -74,12 +73,10 @@ async function getRecord(item) {
 
 //updateRecord function is used to update the record from collection
 async function updateRecord(item) {
-  let mongoClient;
   return new Promise(async (resolve, reject) => {
     try {
       const { rectype, id, body } = item; //take item object and pass required values
-      mongoClient = await dbConnection();
-      const db = mongoClient.db(config.db.dbname);
+      const db = await dbConnection();
       const collname = rectype;
       const newRec = await db
         .collection(collname)
@@ -98,12 +95,10 @@ async function updateRecord(item) {
 
 //deleteRecord function is used to delete the record from collection
 async function deleteRecord(item) {
-  let mongoClient;
   return new Promise(async (resolve, reject) => {
     try {
       const { rectype, id } = item; //pass rectype and id to get data from collections
-      mongoClient = await dbConnection();
-      const db = mongoClient.db(config.db.dbname);
+      const db = await dbConnection();
       const collname = rectype; //collection name
       const result = await db.collection(collname).deleteOne({ id }); //find and update the selected id
       if (!result.deletedCount) {

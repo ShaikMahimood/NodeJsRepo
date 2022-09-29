@@ -82,8 +82,8 @@
         "rectype": "assignedroles"
     },
     "aws": {
-        "ACCESS_KEY_ID": "AKIAQATBCZB5JMXVCIV6",
-        "SECRET_ACCESS_KEY": "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",
+        "ACCESS_KEY_ID": "AKIAQATBCZB5HMEBMCD5",
+        "SECRET_ACCESS_KEY": "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",
         "Bucket_Name": "mys3files"
     },
     "db": {

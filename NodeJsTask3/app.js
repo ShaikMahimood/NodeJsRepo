@@ -29,7 +29,7 @@ app.use("/patient", patient);
 app.use("/common", common);
 app.use("/user", user);
 
-//SET the server to listen at 3000
+//SET the server to listen at 8008
 app.listen(8008, () =>
   console.log("Node server is running on http://localhost:8008")
 );

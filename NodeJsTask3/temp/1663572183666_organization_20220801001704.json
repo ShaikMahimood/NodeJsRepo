@@ -1,0 +1,12 @@
+[{
+  "_id": {
+    "$oid": "631f034cecfdfd62b58a4057"
+  },
+  "name": "unext",
+  "code": "unext",
+  "type": "lab",
+  "status": "active",
+  "rectype": "organization",
+  "created": "2022-09-12T10:00:43.420Z",
+  "id": "20220801001704"
+}]

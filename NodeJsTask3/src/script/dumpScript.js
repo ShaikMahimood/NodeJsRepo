@@ -66,15 +66,15 @@ async function getcontactData(token) {
       headers: { Authorization: `Bearer ${token}` },
     });
     const contactInfo = contactRec.data.results;
-    const contactparams = {};
+    const contactData = {};
     contactInfo.map((userObj) => {
       const { refid, address, phone, email } = userObj;
-      if (!contactparams[refid]) contactparams[refid] = {};
-      if (address) contactparams[refid]["address"] = address;
-      if (phone) contactparams[refid]["phone"] = phone;
-      if (email) contactparams[refid]["email"] = email;
+      if (!contactData[refid]) contactData[refid] = {};
+      if (address) contactData[refid]["address"] = address;
+      if (phone) contactData[refid]["phone"] = phone;
+      if (email) contactData[refid]["email"] = email;
     });
-    return contactparams;
+    return contactData;
   } catch (err) {
     reject(err);
   }

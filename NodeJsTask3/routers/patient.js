@@ -7,6 +7,7 @@ const {
   getRec,
   updateRec,
   deleteRec,
+  getDetails
 } = require("../src/patient/controller");
 
 const { verifyUserToken } = require("../src/middleware/auth");
@@ -23,7 +24,9 @@ router.put("/update", verifyUserToken, updateRec);
 
 router.delete("/delete", verifyUserToken, deleteRec);
 
-router.post("/contact", verifyUserToken, async (req, res) => {
+router.get("/details", getDetails);
+
+router.post("/contact", async (req, res) => {
   try {
     const __action = req.body.__action;
     const processFunction = processFun(__action);
@@ -36,5 +39,5 @@ router.post("/contact", verifyUserToken, async (req, res) => {
   }
 });
 
-router.get("/contact/get", verifyUserToken, getContact);
+router.get("/contact/get", getContact);
 module.exports = router;
