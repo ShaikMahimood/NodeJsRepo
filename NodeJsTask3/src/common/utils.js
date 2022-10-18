@@ -7,6 +7,9 @@ const md5 = require("md5");
 const validatefax = new RegExp(config.contact.faxregex);
 const validatedob = new RegExp(config.common.dobreqex);
 
+const _ = require("lodash");
+const { isEqual, uniq } = _;
+
 class Utils {
   //getCurrentDateTime function used to get current datetime
   getCurrentDateTime() {
@@ -24,7 +27,7 @@ class Utils {
   async getRecOrgId(params) {
     const { getRecord } = require("../db/mongodb.js");
     const { id, rectype } = params;
-    const orgInfo = await getRecord({ id, rectype });
+    const orgInfo = await getRecord({ rectype, id });
     if (!orgInfo.length) throw `Invalid ${rectype} Id`;
     return orgInfo[0].orgid;
   }
@@ -87,8 +90,16 @@ class Utils {
       throw error;
     }
   }
-  
-}
 
+  getModelData(recordsmodeldata, recordsdata) {
+    let data = {};
+    Object.keys(recordsmodeldata).forEach((element)=>
+    {
+      if(recordsdata.hasOwnProperty(element))
+        data[element] = recordsdata[element];
+    })
+    return data;
+  }
+}
 
 module.exports = { Utils };

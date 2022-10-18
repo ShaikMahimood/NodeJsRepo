@@ -9,6 +9,7 @@ const path = require("path");
 const axios = require("axios");
 const api = "http://localhost:8008/";
 
+const { getHtmlContent } = require('../../common/template');
 async function getPatientData(id) {
   try {
     const patientDetails = await axios.get(api + "patient/details", {
@@ -20,13 +21,13 @@ async function getPatientData(id) {
   }
 }
 
-async function compile(templateName, patientData) {
-  const filePath = path.join(process.cwd(), `${templateName}.hbs`);
-  const html = await fs.readFile(filePath, "utf8");
-  console.log(html);
-  return hbs.compile(html)(patientData);
-}
-async function generatePDF(patientId) {
+// async function compile(templateName, patientData) {
+//   const filePath = path.join(process.cwd(), `${templateName}.hbs`);
+//   const html = await fs.readFile(filePath, "utf8");
+//   console.log(html);
+//   return hbs.compile(html)(patientData);
+// }
+async function generatePDF(imageUrl, patientId) {
   const patientData = await getPatientData(patientId);
   const dateCreated = new Date().toLocaleString();
   const {
@@ -54,13 +55,14 @@ async function generatePDF(patientId) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     console.log(patientData);
-    const content = await compile("patient", patientData);
+    patientData.image = imageUrl;
+    const htmlcontent = getHtmlContent();
+    const content = hbs.compile(htmlcontent)(patientData);
     console.log(content);
     await page.setContent(content);
     await page.pdf({
       path: `./pdfFiles/${firstname}_${lastname}_Patient_Info.pdf`,
       format: "A4",
-      printBackground: true,
     });
     console.log("done creating pdf");
     await browser.close();
@@ -70,4 +72,4 @@ async function generatePDF(patientId) {
   }
 }
 
-generatePDF(20220801003896);
+generatePDF('https://images.squarespace-cdn.com/content/v1/598dfb06cd0f684d50f9d08d/1575843844528-QV4AOSPU41C8MDSZ8Z2Y/LucidAct-Health-logo-no-tagline.png',20220801003894);

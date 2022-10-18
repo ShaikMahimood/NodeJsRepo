@@ -93,5 +93,13 @@
     "jwt": {
         "secreteKey": "My Jwt Token Secrete Key",
         "expiresTime": "2h"
+    },
+    "recordsmodel":{
+        "rectype":"recordsmodel",
+        "type":["medication", "diagnosis"]
+    },
+    "records":{
+        "rectype":"records",
+        "type":["medication", "diagnosis"]
     }
 }

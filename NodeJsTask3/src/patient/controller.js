@@ -7,8 +7,6 @@ const {
 } = require("../db/mongodb");
 
 const { Utils } = require("../common/utils");
-const { IotData } = require("aws-sdk");
-const { off } = require("pdfkit");
 
 const utils = new Utils();
 
