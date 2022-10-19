@@ -9,6 +9,8 @@ const {
   deleteRec,
 } = require("../src/organization/controller.js");
 
+const { createRecordsModel } = require('../src/organization/recordsmodel');
+
 const { processFun } = require("../src/common/contact");
 
 const config = require("../src/config/app.sepc.json");
@@ -20,6 +22,8 @@ router.get("/get", getRec);
 router.put("/update", updateRec);
 
 router.delete("/delete", deleteRec);
+
+router.post("/createRecordsModel", createRecordsModel);
 
 router.post('/contact', async(req, res)=>{
   try

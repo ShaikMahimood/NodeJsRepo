@@ -101,5 +101,8 @@
     "records":{
         "rectype":"records",
         "type":["medication", "diagnosis"]
+    },
+    "activitylog":{
+        "rectype": "activitylog"
     }
 }

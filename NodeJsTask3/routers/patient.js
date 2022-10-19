@@ -10,6 +10,8 @@ const {
   getDetails
 } = require("../src/patient/controller");
 
+const { createRecords } = require("../src/common/records");
+
 const { verifyUserToken } = require("../src/middleware/auth");
 
 const { processFun, getContact } = require("../src/common/contact");
@@ -24,9 +26,11 @@ router.put("/update", verifyUserToken, updateRec);
 
 router.delete("/delete", verifyUserToken, deleteRec);
 
-router.get("/details", getDetails);
+router.get("/details", verifyUserToken, getDetails);
 
-router.post("/contact", async (req, res) => {
+router.post("/createrecords", verifyUserToken, createRecords);
+
+router.post("/contact", verifyUserToken, async (req, res) => {
   try {
     const __action = req.body.__action;
     const processFunction = processFun(__action);
