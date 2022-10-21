@@ -31,6 +31,7 @@ async function createRec(req, res) {
     req.body.rectype = config.patient.rectype;
     const patientInfo = await createRecord(req.body);
     res.status(200).json({ status: "Success", results: patientInfo });
+    next();
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }

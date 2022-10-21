@@ -16,21 +16,23 @@ const { verifyUserToken } = require("../src/middleware/auth");
 
 const { processFun, getContact } = require("../src/common/contact");
 
+const { createActivities } = require("../src/user/activities");
+
 const config = require("../src/config/app.sepc.json");
 
-router.post("/create", verifyUserToken, Validation, createRec);
+router.post("/create", verifyUserToken, Validation, createActivities, createRec);
 
-router.get("/get", verifyUserToken, getRec);
+router.get("/get", verifyUserToken, createActivities, getRec);
 
-router.put("/update", verifyUserToken, updateRec);
+router.put("/update", verifyUserToken, createActivities, updateRec);
 
-router.delete("/delete", verifyUserToken, deleteRec);
+router.delete("/delete", verifyUserToken, createActivities, deleteRec);
 
-router.get("/details", verifyUserToken, getDetails);
+router.get("/details", verifyUserToken, createActivities, getDetails);
 
-router.post("/createrecords", verifyUserToken, createRecords);
+router.post("/createrecords", verifyUserToken, createActivities, createRecords);
 
-router.post("/contact", verifyUserToken, async (req, res) => {
+router.post("/contact", verifyUserToken, createActivities, async (req, res) => {
   try {
     const __action = req.body.__action;
     const processFunction = processFun(__action);

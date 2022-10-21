@@ -109,8 +109,8 @@ async function validateAuth(payload) {
     };
     const userData = await getRecord(userParams);
     if (!userData.length) throw "Invalid/Inactive user!";
-    const { id, orgid, firstname, lastname } = userData[0];
-    const tokenParams = { id, orgid, firstname, lastname, username };
+    const { id, orgid, firstname, lastname, offices } = userData[0];
+    const tokenParams = { id, orgid, firstname, lastname, username, offices};
     const token = utils.jwtToken(tokenParams);
     const tokenRecordparams = { refid, token, refrectype };
     await addToken(tokenRecordparams);
