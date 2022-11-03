@@ -15,6 +15,7 @@ async function createRec(req, res) {
   try {
     const {
       body: { orgid, dob },
+      session: { id },
     } = req;
 
     const orgParams = {
@@ -25,13 +26,12 @@ async function createRec(req, res) {
     const orgData = await getRecord(orgParams);
     if (!orgData.length) throw "Invalid/Inactive record!";
 
-    req.body.createdBy = req.session.id;
+    req.body.createdBy = id;
     utils.validateDob(dob);
 
     req.body.rectype = config.patient.rectype;
     const patientInfo = await createRecord(req.body);
     res.status(200).json({ status: "Success", results: patientInfo });
-    next();
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }
@@ -40,14 +40,30 @@ async function createRec(req, res) {
 //getRec function used to call getRecord from mongodb file and get record response or error
 async function getRec(req, res) {
   try {
-    const { query } = req;
+    const {
+      query,
+      session: { id },
+    } = req;
+
     const payload = query;
     payload.rectype = config.patient.rectype;
     const patientInfo = await getRecord(payload);
 
+    const validoffice = await getUserOffices(id);
+
+    const patientResult = [];
+    patientInfo.map((patient) => {
+      const { orgid } = patient;
+      if (validoffice.includes(orgid)) {
+        patientResult.push(patient);
+      }
+    });
+    if (!patientResult.length)
+      throw `user Don't have access to get patient details!`;
+
     res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error });
+    res.status(400).json({ status: "Error :", error: error.message });
   }
 }
 
@@ -89,7 +105,10 @@ async function deleteRec(req, res) {
 
 async function getDetails(req, res) {
   try {
-    const { query } = req;
+    const {
+      query,
+      session: { id },
+    } = req;
     const payload = query;
     const patientParams = { rectype: config.patient.rectype };
     const contactParams = { rectype: config.contact.rectype };
@@ -99,7 +118,19 @@ async function getDetails(req, res) {
       getRecord(contactParams),
       getRecord(officeParams),
     ]);
-    let patientResult = getPatientData(patientInfo, contactInfo, officeInfo);
+    const patientData = getPatientData(patientInfo, contactInfo, officeInfo);
+
+    const validoffice = await checkingUserOffices(id);
+    let patientResult = [];
+    patientData.map((patient) => {
+      const { orgid } = patient;
+      if (validoffice.includes(orgid)) {
+        patientResult.push(patient);
+      }
+    });
+
+    if (!patientResult.length)
+      throw `user Don't have access to get patient details!`;
 
     if (payload.status) {
       patientResult = patientResult.filter(
@@ -109,6 +140,7 @@ async function getDetails(req, res) {
     if (payload.id) {
       patientResult = patientResult.find((data) => data.id == payload.id);
     }
+
     res.status(200).json({ status: "Success", results: patientResult });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
@@ -171,8 +203,36 @@ function getPatientData(patientInfo, contactInfo, officeInfo) {
       return patientData;
     });
     return patientResult;
-  } catch (err) {
-    reject(err);
+  } catch (error) {
+    reject(error);
+  }
+}
+
+async function validateOffices(req, res, next) {
+  try {
+    const {
+      body: { orgid },
+      session: { id },
+    } = req;
+
+    const offices = await getUserOffices(id);
+
+    if (!offices.includes(orgid))
+      throw "User Don't have access to create patient and Enter Valid Orgid!";
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "Error :", error: error });
+  }
+}
+
+async function getUserOffices(id) {
+  try {
+    const officeParams = { rectype: config.user.rectype, id };
+    const getOfficeRecord = await getRecord(officeParams);
+    const { offices } = getOfficeRecord[0];
+    return offices;
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -183,4 +243,5 @@ module.exports = {
   updateRec,
   deleteRec,
   getDetails,
+  validateOffices,
 };

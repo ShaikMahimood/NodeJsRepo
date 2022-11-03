@@ -7,8 +7,11 @@ const {
   getRec,
   updateRec,
   deleteRec,
-  getDetails
+  getDetails,
+  updateDeviceDetails,
+  validateOffices
 } = require("../src/patient/controller");
+const { create } = require('../src/common/readings');
 
 const { createRecords } = require("../src/common/records");
 
@@ -20,7 +23,7 @@ const { createActivities } = require("../src/user/activities");
 
 const config = require("../src/config/app.sepc.json");
 
-router.post("/create", verifyUserToken, Validation, createActivities, createRec);
+router.post("/create", verifyUserToken, Validation, validateOffices, createActivities, createRec);
 
 router.get("/get", verifyUserToken, createActivities, getRec);
 
