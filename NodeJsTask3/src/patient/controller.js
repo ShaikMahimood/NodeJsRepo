@@ -49,7 +49,7 @@ async function getRec(req, res) {
     payload.rectype = config.patient.rectype;
     const patientInfo = await getRecord(payload);
 
-    const validoffice = await getUserOffices(id);
+    const validoffice = await utils.getUserOffices(id);
 
     const patientResult = [];
     patientInfo.map((patient) => {
@@ -102,7 +102,7 @@ async function deleteRec(req, res) {
     res.status(400).json({ status: "Error :", error: error });
   }
 }
-
+//getDetails function used get patient data and patient contact data
 async function getDetails(req, res) {
   try {
     const {
@@ -110,6 +110,7 @@ async function getDetails(req, res) {
       session: { id },
     } = req;
     const payload = query;
+
     const patientParams = { rectype: config.patient.rectype };
     const contactParams = { rectype: config.contact.rectype };
     const officeParams = { rectype: config.organization.rectype };
@@ -118,6 +119,7 @@ async function getDetails(req, res) {
       getRecord(contactParams),
       getRecord(officeParams),
     ]);
+
     const patientData = getPatientData(patientInfo, contactInfo, officeInfo);
 
     const validoffice = await checkingUserOffices(id);
@@ -208,6 +210,7 @@ function getPatientData(patientInfo, contactInfo, officeInfo) {
   }
 }
 
+//validateOffices to validate offices
 async function validateOffices(req, res, next) {
   try {
     const {
@@ -215,7 +218,7 @@ async function validateOffices(req, res, next) {
       session: { id },
     } = req;
 
-    const offices = await getUserOffices(id);
+    const offices = await utils.getUserOffices(id);
 
     if (!offices.includes(orgid))
       throw "User Don't have access to create patient and Enter Valid Orgid!";
@@ -225,17 +228,52 @@ async function validateOffices(req, res, next) {
   }
 }
 
-async function getUserOffices(id) {
+//update patient device details
+async function updateDeviceDetails(req, res) {
   try {
-    const officeParams = { rectype: config.user.rectype, id };
-    const getOfficeRecord = await getRecord(officeParams);
-    const { offices } = getOfficeRecord[0];
-    return offices;
+    const {
+      body: {
+        id,
+        data: { devices },
+      },
+    } = req;
+    let updatedDevices = {};
+    const payload = {
+      rectype: config.patient.rectype,
+      id,
+      body: { data: { devices } },
+    };
+
+    const patientParams = { rectype: config.patient.rectype, id };
+    const patientData = await getRecord(patientParams);
+    if (!patientData.length) throw `record not found!`;
+
+    if (patientData[0].data) {
+      const {
+        data: { devices: recorddevices },
+      } = patientData[0];
+      if (recorddevices) {
+        Object.keys(recorddevices).forEach((element) => {
+          if (!updatedDevices[element])
+            updatedDevices[element] = recorddevices[element];
+        });
+        Object.keys(devices).forEach((element) => {
+          if (!updatedDevices[element])
+            updatedDevices[element] = devices[element];
+          updatedDevices[element] = devices[element];
+        });
+
+        console.log(updatedDevices);
+        payload.body.data.devices = updatedDevices;
+      }
+    }
+    const patientInfo = await updateRecord(payload);
+    res.status(200).json({ status: "Success", results: patientInfo });
   } catch (error) {
-    throw error;
+    console.log(error);
+    res.status(400).json({ status: "Error :", error: error });
   }
 }
-
 //export all functions
 module.exports = {
   createRec,
@@ -243,5 +281,6 @@ module.exports = {
   updateRec,
   deleteRec,
   getDetails,
+  updateDeviceDetails,
   validateOffices,
 };

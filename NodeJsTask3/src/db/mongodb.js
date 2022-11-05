@@ -80,9 +80,9 @@ async function updateRecord(item) {
       const collname = rectype;
       const newRec = await db
         .collection(collname)
-        .updateOne({ id: id }, { $set: body }); //find the id and update the record
-      if (!newRec.modifiedCount) {
-        throw `${rectype} Record is Not Found!`;
+        .updateOne({ id }, { $set: body }); //find the id and update the record
+        if (!newRec.modifiedCount) {
+        throw `${rectype} Record is not updated!`;
       }
       resolve(item); //if data updated get the update record
     } catch (error) {

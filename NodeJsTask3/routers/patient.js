@@ -11,7 +11,7 @@ const {
   updateDeviceDetails,
   validateOffices
 } = require("../src/patient/controller");
-const { create } = require('../src/common/readings');
+const { create, remove } = require('../src/common/readings');
 
 const { createRecords } = require("../src/common/records");
 
@@ -33,7 +33,13 @@ router.delete("/delete", verifyUserToken, createActivities, deleteRec);
 
 router.get("/details", verifyUserToken, createActivities, getDetails);
 
+router.put("/updatedevicedetails", updateDeviceDetails);
+
 router.post("/createrecords", verifyUserToken, createActivities, createRecords);
+
+router.post("/reading", create);
+
+router.delete("/remove", remove);
 
 router.post("/contact", verifyUserToken, createActivities, async (req, res) => {
   try {

@@ -7,8 +7,7 @@ const md5 = require("md5");
 const validatefax = new RegExp(config.contact.faxregex);
 const validatedob = new RegExp(config.common.dobreqex);
 
-const _ = require("lodash");
-const { isEqual, uniq } = _;
+const { getRecord } = require("../db/mongodb.js");
 
 class Utils {
   //getCurrentDateTime function used to get current datetime
@@ -34,7 +33,6 @@ class Utils {
 
   //getFileOriginalname function used to get file original name
   async getFileOriginalname(params) {
-    const { getRecord } = require("../db/mongodb.js");
     const { id, rectype } = params;
     const orgInfo = await getRecord({ id, rectype });
     if (!orgInfo.length) throw `Invalid ${rectype} Id`;
@@ -75,6 +73,7 @@ class Utils {
     return md5(text);
   }
 
+  //generate token with json web token
   jwtToken(params) {
     const token = jwt.sign(params, config.jwt.secreteKey, {
       expiresIn: config.jwt.expiresTime,
@@ -82,6 +81,7 @@ class Utils {
     return token;
   }
 
+  //validate json web token
   validateToken(token) {
     try {
       const decoded = jwt.verify(token, config.jwt.secreteKey);
@@ -91,13 +91,52 @@ class Utils {
     }
   }
 
+  //get model data from recordsmodeldata
   getModelData(recordsmodeldata, recordsdata) {
     let data = {};
-    Object.keys(recordsmodeldata).forEach((element)=>
-    {
-      if(recordsdata.hasOwnProperty(element))
+    Object.keys(recordsmodeldata).forEach((element) => {
+      if (recordsdata.hasOwnProperty(element))
         data[element] = recordsdata[element];
-    })
+    });
+    return data;
+  }
+
+  //getUserOffices to get user offices
+  async getUserOffices(id) {
+    try {
+      const officeParams = { rectype: config.user.rectype, id };
+      const getOfficeRecord = await getRecord(officeParams);
+      return getOfficeRecord[0].offices;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  //checkingDeviceData to check record values with given value
+  checkingDeviceData(params) {
+    const { min, max, value } = params;
+    if (Number(value) < Number(min) || Number(value) > Number(max)) {
+      return true;
+    }
+    return false;
+  }
+
+  //get flag, limitDiff, otherdata from min, max and value
+  getFlagLimitDiffAndOtherdata(params) {
+    const { min, max, value } = params;
+    const data = {};
+    if (Number(value) < Number(min)) {
+      data.flag = "Below Minimum";
+      data.limitDiff = min - value;
+    } else {
+      data.flag = "Over Maximum";
+      data.limitDiff = value - max;
+    }
+    data.otherdata = {
+      actualvalue: value,
+      min,
+      max,
+    };
     return data;
   }
 }
