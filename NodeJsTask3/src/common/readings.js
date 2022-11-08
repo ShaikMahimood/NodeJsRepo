@@ -3,8 +3,6 @@ const config = require("../config/app.sepc.json");
 
 const {
   createRecord,
-  updateRecord,
-  getRecord,
   deleteRecord,
 } = require("../db/mongodb");
 
@@ -28,10 +26,7 @@ const readingSchema = new Schema({
 //validation function is used to validate requested fields with the schema
 function validation(validateParams) {
   const {
-    refid,
-    orgid,
-    type,
-    refrectype,
+    refid, type, value1, value2, effectiveDateTime
   } = validateParams;
 
   //validate the schema with requested data
@@ -50,6 +45,7 @@ function validation(validateParams) {
 async function create(req, res) {
   try {
     const { refid, type, value1, value2, effectiveDateTime } = req.body;
+    validation(req.body);
     //get patient orgid with orgparams from patient record
     const orgParams = { id: refid, rectype: config.patient.rectype };
     const orgid = await utils.getRecOrgId(orgParams);
@@ -67,7 +63,7 @@ async function create(req, res) {
         valueQuantity: {},
       },
     };
-    validation(payload);
+    
     //checking type is bp or not, if bp assign component data otherwise component data is empty
     if (type == config.readings.type[0]) {
       //checking value1, value2 have values or not
@@ -97,10 +93,11 @@ async function create(req, res) {
     }
 
     const recordinfo = await createRecord(payload);
+    console.log(recordinfo);
     if (!recordinfo) throw "record not created!";
 
     //generateAlert with readings created record data
-    await generateAlert(recordinfo);
+    generateAlert(recordinfo);
     res.status(200).json({ status: "Success", results: recordinfo });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error.message });
@@ -117,7 +114,7 @@ async function remove(req, res) {
     const readingsInfo = await deleteRecord(payload);
     res.status(200).json({ status: "Success", results: readingsInfo });
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error });
+    res.status(400).json({ status: "Error :", error: error.message });
   }
 }
 

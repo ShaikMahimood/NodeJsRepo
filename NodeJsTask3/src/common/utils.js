@@ -112,32 +112,26 @@ class Utils {
     }
   }
 
-  //checkingDeviceData to check record values with given value
-  checkingDeviceData(params) {
-    const { min, max, value } = params;
-    if (Number(value) < Number(min) || Number(value) > Number(max)) {
-      return true;
-    }
-    return false;
-  }
-
-  //get flag, limitDiff, otherdata from min, max and value
-  getFlagLimitDiffAndOtherdata(params) {
+  //checkingAndGetDeviceData check with min amd max values and get flag, limitDiff, otherdata
+  checkingAndGetDeviceData(params) {
     const { min, max, value } = params;
     const data = {};
-    if (Number(value) < Number(min)) {
-      data.flag = "Below Minimum";
-      data.limitDiff = min - value;
-    } else {
-      data.flag = "Over Maximum";
-      data.limitDiff = value - max;
+    if (Number(value) < Number(min) || Number(value) > Number(max)) {
+      if (Number(value) < Number(min)) {
+        data.flag = config.alerts.flag.BelowMinimum;
+        data.limitDiff = min - value;
+      } else {
+        data.flag = config.alerts.flag.BelowMaximum;
+        data.limitDiff = value - max;
+      }
+      data.otherdata = {
+        actualvalue: value,
+        min,
+        max,
+      };
+      return data;
     }
-    data.otherdata = {
-      actualvalue: value,
-      min,
-      max,
-    };
-    return data;
+    return false;
   }
 }
 

@@ -274,6 +274,7 @@ async function updateDeviceDetails(req, res) {
     res.status(400).json({ status: "Error :", error: error });
   }
 }
+
 //export all functions
 module.exports = {
   createRec,

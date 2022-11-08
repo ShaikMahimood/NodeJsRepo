@@ -13,7 +13,8 @@ const alertsSchema = new Schema({
   rectype: { type: String },
   orgid: { type: String, required: true },
   refid: { type: String, required: true },
-  refrectype: { type: String },
+  type: { type: String, required: true },
+  refrectype: { type: String, required: true },
   data: {},
   created: { type: String },
 });
@@ -21,18 +22,12 @@ const alertsSchema = new Schema({
 //validation function is used to validate requested fields with the schema
 function validation(validateParams) {
   const {
+    id,
     refid,
     orgid,
+    type,
     refrectype,
-    data: {
-      type,
-      isaddressed,
-      timestamp,
-      readingrefid,
-      flag,
-      limitDiff,
-      otherdatac,
-    },
+    data: { effectiveDateTime, component, valueQuantity },
   } = validateParams;
 
   //validate the schema with requested data
@@ -65,8 +60,7 @@ async function create(alertParams) {
       },
     } = alertParams;
     alertParams.rectype = config.alerts.rectype;
-    validation(alertParams);
-    
+
     const alertInfo = await createRecord(alertParams);
     console.log(alertInfo);
   } catch (error) {
@@ -89,9 +83,16 @@ async function remove(params) {
 //generateAlert to check readings record and patient record data if any alert found then create alert record
 async function generateAlert(readingcreatedobject) {
   try {
-    const { id, refid, orgid, type, effectiveDateTime, refrectype, data } =
-      readingcreatedobject;
+    const {
+      id,
+      refid,
+      orgid,
+      type,
+      refrectype,
+      data: { effectiveDateTime, component, valueQuantity },
+    } = readingcreatedobject;
 
+    validation(readingcreatedobject);
     let utilsdata = {};
 
     //get patient record data and check patient devices data
@@ -115,14 +116,14 @@ async function generateAlert(readingcreatedobject) {
         {
           valueQuantity: { value: value2 },
         },
-      ] = data.component;
+      ] = component;
 
       const { sys, dia } = devices[type];
       const sysparams = { min: sys.min, max: sys.max, value: value1 };
 
       //checking systolic data
-      if (utils.checkingDeviceData(sysparams)) {
-        utilsdata = utils.getFlagLimitDiffAndOtherdata(sysparams);
+      utilsdata = utils.checkingAndGetDeviceData(sysparams);
+      if (utilsdata) {
         const { flag, limitDiff, otherdata } = utilsdata;
 
         const alertParams = {
@@ -144,8 +145,8 @@ async function generateAlert(readingcreatedobject) {
 
       const diaparams = { min: dia.min, max: dia.max, value: value2 };
       //checking diastolic data
-      if (utils.checkingDeviceData(diaparams)) {
-        utilsdata = utils.getFlagLimitDiffAndOtherdata(diaparams);
+      utilsdata = utils.checkingAndGetDeviceData(diaparams);
+      if (utilsdata) {
         const { flag, limitDiff, otherdata } = utilsdata;
 
         const alertParams = {
@@ -165,13 +166,13 @@ async function generateAlert(readingcreatedobject) {
         await create(alertParams);
       }
     } else {
-      const { value } = data.valueQuantity;
+      const { value } = valueQuantity;
       const { min, max } = devices[type];
       const params = { min, max, value };
 
       //checking remaining devices data
-      if (utils.checkingDeviceData(params)) {
-        utilsdata = utils.getFlagLimitDiffAndOtherdata(params);
+      utilsdata = utils.checkingAndGetDeviceData(params);
+      if (utilsdata) {
         const { flag, limitDiff, otherdata } = utilsdata;
 
         const alertParams = {

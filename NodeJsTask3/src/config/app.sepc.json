@@ -123,6 +123,10 @@
                 "systolic":"systolic",
                 "diastolic":"diastolic"
             }
+        },
+        "flag":{
+            "BelowMinimum":"Below Minimum",
+            "BelowMaximum":"Below Maximum"
         }
     }
 
