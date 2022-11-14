@@ -39,7 +39,7 @@ async function createRecord(item) {
       item.created = utils.getCurrentDateTime(); //getCurrentDateTime() is used to get current data and time from Utils file
 
       const collname = item.rectype; //collection name
-      
+
       const db = await dbConnection();
 
       item.id = await getNextSequenceValue(); //find new value for id
@@ -81,9 +81,6 @@ async function updateRecord(item) {
       const newRec = await db
         .collection(collname)
         .updateOne({ id }, { $set: body }); //find the id and update the record
-        if (!newRec.modifiedCount) {
-        throw `${rectype} Record is not updated!`;
-      }
       resolve(item); //if data updated get the update record
     } catch (error) {
       reject(error);

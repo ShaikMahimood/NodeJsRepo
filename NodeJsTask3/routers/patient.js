@@ -1,7 +1,7 @@
-const Router = require("express");
+const Router = require('express');
 const router = Router();
 
-const { Validation } = require("../src/patient/patient");
+const { Validation } = require('../src/patient/patient');
 const {
   createRec,
   getRec,
@@ -10,49 +10,56 @@ const {
   getDetails,
   updateDeviceDetails,
   validateOffices
-} = require("../src/patient/controller");
-const { create, remove } = require('../src/common/readings');
+} = require('../src/patient/controller');
 
-const { createRecords } = require("../src/common/records");
+const { create, get, remove } = require('../src/common/readings');
 
-const { verifyUserToken } = require("../src/middleware/auth");
+const { getAlerts } = require('../src/common/alerts');
 
-const { processFun, getContact } = require("../src/common/contact");
+const { createRecords } = require('../src/common/records');
 
-const { createActivities } = require("../src/user/activities");
+const { verifyUserToken } = require('../src/middleware/auth');
 
-const config = require("../src/config/app.sepc.json");
+const { processFun, getContact } = require('../src/common/contact');
 
-router.post("/create", verifyUserToken, Validation, validateOffices, createActivities, createRec);
+const { createActivities } = require('../src/user/activities');
 
-router.get("/get", verifyUserToken, createActivities, getRec);
+const config = require('../src/config/app.sepc.json');
 
-router.put("/update", verifyUserToken, createActivities, updateRec);
+router.post('/create', verifyUserToken, Validation, validateOffices, createActivities, createRec);
 
-router.delete("/delete", verifyUserToken, createActivities, deleteRec);
+router.get('/get', verifyUserToken, createActivities, getRec);
 
-router.get("/details", verifyUserToken, createActivities, getDetails);
+router.put('/update', verifyUserToken, createActivities, updateRec);
 
-router.put("/updatedevicedetails", updateDeviceDetails);
+router.delete('/delete', verifyUserToken, createActivities, deleteRec);
 
-router.post("/createrecords", verifyUserToken, createActivities, createRecords);
+router.get('/details', verifyUserToken, createActivities, getDetails);
 
-router.post("/reading", create);
+router.put('/updatedevicedetails', updateDeviceDetails);
 
-router.delete("/remove", remove);
+router.post('/createrecords', verifyUserToken, createActivities, createRecords);
 
-router.post("/contact", verifyUserToken, createActivities, async (req, res) => {
+router.post('/reading', create);
+
+router.get('/getpatientreadings', get);
+
+router.delete('/remove', remove);
+
+router.get('/getpatientalerts', getAlerts);
+
+router.post('/contact', verifyUserToken, createActivities, async (req, res) => {
   try {
     const __action = req.body.__action;
     const processFunction = processFun(__action);
     const contactBody = req.body.body || {};
     contactBody.refrectype = config.patient.rectype;
     const result = await processFunction(contactBody);
-    res.status(200).json({ status: "Success", results: result });
+    res.status(200).json({ status: 'Success', results: result });
   } catch (error) {
-    res.status(400).json({ status: "Error :", error: error.message });
+    res.status(400).json({ status: 'Error :', error: error.message });
   }
 });
 
-router.get("/contact/get", getContact);
+router.get('/contact/get', getContact);
 module.exports = router;

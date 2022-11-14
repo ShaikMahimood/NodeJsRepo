@@ -93,7 +93,6 @@ async function generateAlert(readingcreatedobject) {
     } = readingcreatedobject;
 
     validation(readingcreatedobject);
-    let utilsdata = {};
 
     //get patient record data and check patient devices data
     const recordData = await getRecord({
@@ -105,10 +104,13 @@ async function generateAlert(readingcreatedobject) {
     const {
       data: { devices },
     } = recordData[0];
+ 
+    const findAlert = [];
 
     //check patient devices data with readings data if data is not match then create alert record
     //check type is bp or not if bp check systolic and diastolic data
     if (type == config.readings.type[0]) {
+      
       const [
         {
           valueQuantity: { value: value1 },
@@ -117,63 +119,23 @@ async function generateAlert(readingcreatedobject) {
           valueQuantity: { value: value2 },
         },
       ] = component;
-
       const { sys, dia } = devices[type];
-      const sysparams = { min: sys.min, max: sys.max, value: value1 };
-
-      //checking systolic data
-      utilsdata = utils.checkingAndGetDeviceData(sysparams);
-      if (utilsdata) {
-        const { flag, limitDiff, otherdata } = utilsdata;
-
-        const alertParams = {
-          refid,
-          orgid,
-          refrectype,
-          data: {
-            isaddressed: false,
-            timestamp: effectiveDateTime,
-            readingrefid: id,
-            type: config.alerts.type.bp.systolic,
-            flag,
-            limitDiff,
-            otherdata,
-          },
-        };
-        await create(alertParams);
-      }
-
-      const diaparams = { min: dia.min, max: dia.max, value: value2 };
-      //checking diastolic data
-      utilsdata = utils.checkingAndGetDeviceData(diaparams);
-      if (utilsdata) {
-        const { flag, limitDiff, otherdata } = utilsdata;
-
-        const alertParams = {
-          refid,
-          orgid,
-          refrectype,
-          data: {
-            isaddressed: false,
-            timestamp: effectiveDateTime,
-            readingrefid: id,
-            type: config.alerts.type.bp.diastolic,
-            flag,
-            limitDiff,
-            otherdata,
-          },
-        };
-        await create(alertParams);
-      }
+      if(sys) findAlert.push({type:config.alerts.type.bp.systolic,value:value1, min: sys.min, max: sys.max});
+      if(dia) findAlert.push({type:config.alerts.type.bp.diastolic,value:value2, min: dia.min, max: dia.max});
     } else {
+      //get valueQuantity value for glucose, pulse, oxygen, weight types
       const { value } = valueQuantity;
       const { min, max } = devices[type];
+      if(min && max) findAlert.push({type, value, min, max});
+    }
+    //loop findAlert array if any alert found
+    for(i=0;i<findAlert.length;i++){
+      const {type, value, min, max} =findAlert[i];
       const params = { min, max, value };
-
       //checking remaining devices data
-      utilsdata = utils.checkingAndGetDeviceData(params);
-      if (utilsdata) {
-        const { flag, limitDiff, otherdata } = utilsdata;
+      const utilsdata = utils.checkingAndGetDeviceData(params);
+      if(!utilsdata.flag) continue;
+      const { flag, limitDiff, otherdata } = utilsdata;
 
         const alertParams = {
           refid,
@@ -190,14 +152,40 @@ async function generateAlert(readingcreatedobject) {
           },
         };
         await create(alertParams);
-      }
     }
   } catch (error) {
     console.log(error);
   }
 }
+
+//get alert record
+async function getAlerts(req, res) {
+  try {
+    const {
+      query: { refid, startdate, enddate },
+    } = req;
+    const payload = { refid, rectype: config.alerts.rectype };
+
+    const alertsInfo = await getRecord(payload);
+    if (!alertsInfo.length) throw `record not found!`;
+    const alertsData = [];
+
+    alertsInfo.map((alert) => {
+      const { timestamp } = alert.data;
+      if (startdate <= timestamp && timestamp <= enddate) {
+        alertsData.push(alert);
+      }
+    });
+    console.log(alertsInfo);
+    res.status(200).json({ status: "Success", results: alertsData });
+  } catch (error) {
+    res.status(400).json({ status: "Error :", error: error.message });
+  }
+}
+
 module.exports = {
   create,
+  getAlerts,
   remove,
   generateAlert,
 };

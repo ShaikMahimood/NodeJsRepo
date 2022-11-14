@@ -116,22 +116,24 @@ class Utils {
   checkingAndGetDeviceData(params) {
     const { min, max, value } = params;
     const data = {};
-    if (Number(value) < Number(min) || Number(value) > Number(max)) {
       if (Number(value) < Number(min)) {
         data.flag = config.alerts.flag.BelowMinimum;
         data.limitDiff = min - value;
-      } else {
+        data.otherdata = {
+          actualvalue: value,
+          min,
+          max,
+        };
+      } else if(Number(value) > Number(max)) {
         data.flag = config.alerts.flag.BelowMaximum;
         data.limitDiff = value - max;
-      }
-      data.otherdata = {
-        actualvalue: value,
-        min,
-        max,
-      };
+        data.otherdata = {
+          actualvalue: value,
+          min,
+          max,
+        };
+      } 
       return data;
-    }
-    return false;
   }
 }
 

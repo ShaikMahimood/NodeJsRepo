@@ -237,7 +237,6 @@ async function updateDeviceDetails(req, res) {
         data: { devices },
       },
     } = req;
-    let updatedDevices = {};
     const payload = {
       rectype: config.patient.rectype,
       id,
@@ -247,23 +246,13 @@ async function updateDeviceDetails(req, res) {
     const patientParams = { rectype: config.patient.rectype, id };
     const patientData = await getRecord(patientParams);
     if (!patientData.length) throw `record not found!`;
-
-    if (patientData[0].data) {
+    const {data} = patientData[0];
+    if (data) {
       const {
-        data: { devices: recorddevices },
-      } = patientData[0];
-      if (recorddevices) {
-        Object.keys(recorddevices).forEach((element) => {
-          if (!updatedDevices[element])
-            updatedDevices[element] = recorddevices[element];
-        });
-        Object.keys(devices).forEach((element) => {
-          if (!updatedDevices[element])
-            updatedDevices[element] = devices[element];
-          updatedDevices[element] = devices[element];
-        });
-
-        console.log(updatedDevices);
+          devices: existingdevices
+      } = data;
+      if (existingdevices) {
+        const updatedDevices = {...existingdevices, ...devices};
         payload.body.data.devices = updatedDevices;
       }
     }
