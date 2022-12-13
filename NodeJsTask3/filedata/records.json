@@ -1,0 +1,54 @@
+[{
+  "refid": "20220801003891",
+  "recordsmodelid": "20220801003959",
+  "type": "diagnosis",
+  "data": {
+    "start": "2022-10-11"
+  },
+  "refrectype": "patient",
+  "orgid": "20220801003036",
+  "rectype": "records",
+  "created": "2022-10-11T01:25:33.432Z",
+  "id": "20220801003968"
+},{
+  "refid": "20220801003891",
+  "recordsmodelid": "20220801003958",
+  "type": "medication",
+  "data": {
+    "date": "2022-10-11",
+    "names": "Dolo 360",
+    "notes": "fever"
+  },
+  "refrectype": "patient",
+  "orgid": "20220801003036",
+  "rectype": "records",
+  "created": "2022-10-11T04:20.54.126Z",
+  "id": "20220801003969"
+},
+{
+  "refid": "20220801003891",
+  "recordsmodelid": "20220801003959",
+  "type": "diagnosis",
+  "data": {
+    "start": "2022-10-25"
+  },
+  "refrectype": "patient",
+  "orgid": "20220801003036",
+  "rectype": "records",
+  "created": "2022-10-25T12:35:20.348Z",
+  "id": "20220801003970"
+},{
+  "refid": "20220801003891",
+  "recordsmodelid": "20220801003958",
+  "type": "medication",
+  "data": {
+    "date": "2022-11-12",
+    "names": "Dolo 650",
+    "notes": "fever"
+  },
+  "refrectype": "patient",
+  "orgid": "20220801003036",
+  "rectype": "records",
+  "created": "2022-11-25T06:15:25.743Z",
+  "id": "20220801003972"
+}]

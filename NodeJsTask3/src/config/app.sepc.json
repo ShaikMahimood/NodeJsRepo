@@ -126,7 +126,7 @@
         },
         "flag":{
             "BelowMinimum":"Below Minimum",
-            "BelowMaximum":"Below Maximum"
+            "AboveMaximum":"Above Maximum"
         }
     }
 

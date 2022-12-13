@@ -21,6 +21,7 @@ async function dbConnection() {
     throw error;
   }
 }
+
 //getNextSequenceValue is used to get next value for id
 async function getNextSequenceValue() {
   const db = await dbConnection(); //connect to mongodb and get databases
@@ -33,7 +34,7 @@ async function getNextSequenceValue() {
 }
 
 //createRecord function is used to insert record into collection with req body
-async function createRecord(item) {
+function createRecord(item) {
   return new Promise(async (resolve, reject) => {
     try {
       item.created = utils.getCurrentDateTime(); //getCurrentDateTime() is used to get current data and time from Utils file
@@ -55,7 +56,7 @@ async function createRecord(item) {
 }
 
 //getRecord function is used to get data from collection
-async function getRecord(item) {
+function getRecord(item) {
   return new Promise(async (resolve, reject) => {
     try {
       const { rectype, ...restParams } = item; //pass rectype and restparams to get data from collections
@@ -72,7 +73,7 @@ async function getRecord(item) {
 }
 
 //updateRecord function is used to update the record from collection
-async function updateRecord(item) {
+function updateRecord(item) {
   return new Promise(async (resolve, reject) => {
     try {
       const { rectype, id, body } = item; //take item object and pass required values
@@ -91,7 +92,7 @@ async function updateRecord(item) {
 }
 
 //deleteRecord function is used to delete the record from collection
-async function deleteRecord(item) {
+function deleteRecord(item) {
   return new Promise(async (resolve, reject) => {
     try {
       const { rectype, id } = item; //pass rectype and id to get data from collections
@@ -110,5 +111,27 @@ async function deleteRecord(item) {
   });
 }
 
+function aggr(rectype, query) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const db = await dbConnection();
+      const result = await db.collection(rectype).aggregate(query).toArray();
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    } finally {
+      await mongoClient.close();
+    }
+  });
+}
+
 dbConnection();
-module.exports = { createRecord, updateRecord, deleteRecord, getRecord }; //export all functions
+//export all functions
+module.exports = {
+  dbConnection,
+  createRecord,
+  updateRecord,
+  deleteRecord,
+  getRecord,
+  aggr
+}; 

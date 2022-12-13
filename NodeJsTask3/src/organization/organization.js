@@ -6,6 +6,10 @@ const officeSchema = new Schema({
   rectype: {
     type: String,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   code: {
     type: String,
     required: true,
@@ -35,10 +39,11 @@ const officeSchema = new Schema({
 //validation function is used to validate requested fields with the schema
 function Validation(req, res, next) {
   const {
-    body: { code, type, status, inactivereason, created, date },
+    body: { name, code, type, status, inactivereason, created, date },
   } = req;
 
   const officeData = {
+    name,
     code,
     type,
     status,

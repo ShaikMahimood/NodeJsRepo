@@ -9,7 +9,6 @@ const {
   deleteRec,
   getDetails,
   updateDeviceDetails,
-  validateOffices
 } = require('../src/patient/controller');
 
 const { create, get, remove } = require('../src/common/readings');
@@ -19,6 +18,8 @@ const { getAlerts } = require('../src/common/alerts');
 const { createRecords } = require('../src/common/records');
 
 const { verifyUserToken } = require('../src/middleware/auth');
+
+const { validateOffices } = require('../src/middleware/middleware');
 
 const { processFun, getContact } = require('../src/common/contact');
 
@@ -34,7 +35,7 @@ router.put('/update', verifyUserToken, createActivities, updateRec);
 
 router.delete('/delete', verifyUserToken, createActivities, deleteRec);
 
-router.get('/details', verifyUserToken, createActivities, getDetails);
+router.post('/details', getDetails);
 
 router.put('/updatedevicedetails', updateDeviceDetails);
 

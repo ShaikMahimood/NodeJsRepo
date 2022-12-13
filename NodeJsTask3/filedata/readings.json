@@ -1,0 +1,270 @@
+[
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "bp",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-11T01:00:00Z",
+      "component": [
+        {
+          "valueQuantity": {
+            "value": "220",
+            "unit": "mmHg"
+          }
+        },
+        {
+          "valueQuantity": {
+            "value": "90",
+            "unit": "mmHg"
+          }
+        }
+      ],
+      "valueQuantity": {}
+    },
+    "created": "2022-11-10T10:09:05.602Z",
+    "id": "20220801005031"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "pulse",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-12T12:00:20Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "100",
+        "unit": "beats/minute"
+      }
+    },
+    "created": "2022-11-10T10:28:07.327Z",
+    "id": "20220801005032"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "pulse",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-13T10:10:20Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "120",
+        "unit": "beats/minute"
+      }
+    },
+    "created": "2022-11-10T11:59:00.594Z",
+    "id": "20220801005033"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "glucose",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-14T06:15:30Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "100",
+        "unit": "mg/dl"
+      }
+    },
+    "created": "2022-11-10T11:12:15.395Z",
+    "id": "20220801005034"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "bp",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-13T05:13:50Z",
+      "component": [
+        {
+          "valueQuantity": {
+            "value": "120",
+            "unit": "mmHg"
+          }
+        },
+        {
+          "valueQuantity": {
+            "value": "90",
+            "unit": "mmHg"
+          }
+        }
+      ],
+      "valueQuantity": {}
+    },
+    "created": "2022-11-10T11:34:58.533Z",
+    "id": "20220801005035"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "glucose",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-14T12:05:07Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "120",
+        "unit": "mg/dl"
+      }
+    },
+    "created": "2022-11-10T11:35:23.021Z",
+    "id": "20220801005036"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "glucose",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-18T02:10:20Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "120",
+        "unit": "mg/dl"
+      }
+    },
+    "created": "2022-11-10T11:40:14.713Z",
+    "id": "20220801005037"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "bp",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-19T08:40:55Z",
+      "component": [
+        {
+          "valueQuantity": {
+            "value": "120",
+            "unit": "mmHg"
+          }
+        },
+        {
+          "valueQuantity": {
+            "value": "20",
+            "unit": "mmHg"
+          }
+        }
+      ],
+      "valueQuantity": {}
+    },
+    "created": "2022-11-10T11:54:02.061Z",
+    "id": "20220801005038"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "oxygen",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-22T02:30:45Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "120",
+        "unit": "%"
+      }
+    },
+    "created": "2022-11-11T07:38:30.908Z",
+    "id": "20220801005039"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "oxygen",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-12T04:30:05Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "100",
+        "unit": "%"
+      }
+    },
+    "created": "2022-11-11T08:06:37.682Z",
+    "id": "20220801005028"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "weight",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-20T04:30:05Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "65",
+        "unit": "lbs"
+      }
+    },
+    "created": "2022-11-11T09:06:37.682Z",
+    "id": "20220801005029"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "pulse",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-27T12:00:00Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "60",
+        "unit": "beats/minute"
+      }
+    },
+    "created": "2022-11-10T10:28:07.327Z",
+    "id": "20220801005040"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "weight",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-24T11:05:30Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "50",
+        "unit": "lbs"
+      }
+    },
+    "created": "2022-11-10T11:12:15.395Z",
+    "id": "20220801005042"
+  },
+  {
+    "refid": "20220801003891",
+    "orgid": "20220801003036",
+    "type": "oxygen",
+    "rectype": "readings",
+    "refrectype": "patient",
+    "data": {
+      "effectiveDateTime": "2022-10-27T12:30:45Z",
+      "component": [],
+      "valueQuantity": {
+        "value": "55",
+        "unit": "%"
+      }
+    },
+    "created": "2022-11-11T07:38:30.908Z",
+    "id": "20220801005045"
+  }
+]

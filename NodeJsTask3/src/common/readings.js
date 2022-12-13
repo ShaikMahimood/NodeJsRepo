@@ -67,7 +67,8 @@ async function create(req, res) {
     if (!patientData.length)
       throw `${config.patient.rectype} record not found!`;
     const { data, rectype } = patientData[0];
-    if (!data || !data.devices[type]) throw `${rectype} don't have devices or devices type!`;
+    if (!data || !data.devices[type])
+      throw `${rectype} don't have devices or devices type!`;
 
     //checking type is bp or not, if bp assign component data otherwise component data is empty
     if (type == config.readings.type[0]) {
@@ -121,17 +122,20 @@ async function get(req, res) {
     } = req;
     const payload = { refid, rectype: config.readings.rectype };
 
-    const readingsInfo = await getRecord(payload);
+    let readingsInfo = await getRecord(payload);
     if (!readingsInfo.length) throw `record not found!`;
-    const readingsData = [];
+    if (startdate && enddate) {
+      const readingsData = [];
 
-    readingsInfo.map((reading) => {
-      const { effectiveDateTime } = reading.data;
-      if (startdate <= effectiveDateTime && effectiveDateTime <= enddate) {
-        readingsData.push(reading);
-      }
-    });
-    res.status(200).json({ status: "Success", results: readingsData });
+      readingsInfo.map((reading) => {
+        const { effectiveDateTime } = reading.data;
+        if (startdate <= effectiveDateTime && effectiveDateTime <= enddate) {
+          readingsData.push(reading);
+        }
+      });
+      readingsInfo = readingsData;
+    }
+    res.status(200).json({ status: "Success", results: readingsInfo });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error.message });
   }

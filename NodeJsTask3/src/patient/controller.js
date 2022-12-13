@@ -4,6 +4,7 @@ const {
   updateRecord,
   deleteRecord,
   getRecord,
+  aggr,
 } = require("../db/mongodb");
 
 const { Utils } = require("../common/utils");
@@ -30,8 +31,8 @@ async function createRec(req, res) {
     utils.validateDob(dob);
 
     req.body.rectype = config.patient.rectype;
-    const patientInfo = await createRecord(req.body);
-    res.status(200).json({ status: "Success", results: patientInfo });
+    const patients = await createRecord(req.body);
+    res.status(200).json({ status: "Success", results: patients });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }
@@ -47,12 +48,12 @@ async function getRec(req, res) {
 
     const payload = query;
     payload.rectype = config.patient.rectype;
-    const patientInfo = await getRecord(payload);
+    const patients = await getRecord(payload);
 
     const validoffice = await utils.getUserOffices(id);
 
     const patientResult = [];
-    patientInfo.map((patient) => {
+    patients.map((patient) => {
       const { orgid } = patient;
       if (validoffice.includes(orgid)) {
         patientResult.push(patient);
@@ -61,7 +62,7 @@ async function getRec(req, res) {
     if (!patientResult.length)
       throw `user Don't have access to get patient details!`;
 
-    res.status(200).json({ status: "Success", results: patientInfo });
+    res.status(200).json({ status: "Success", results: patients });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error.message });
   }
@@ -82,8 +83,8 @@ async function updateRec(req, res) {
       else throw "Enter inactivereason!";
     }
 
-    const patientInfo = await updateRecord(payload);
-    res.status(200).json({ status: "Success", results: patientInfo });
+    const patients = await updateRecord(payload);
+    res.status(200).json({ status: "Success", results: patients });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }
@@ -96,8 +97,8 @@ async function deleteRec(req, res) {
     const payload = query;
 
     payload.rectype = config.patient.rectype;
-    const patientInfo = await deleteRecord(payload);
-    res.status(200).json({ status: "Success", results: patientInfo });
+    const patients = await deleteRecord(payload);
+    res.status(200).json({ status: "Success", results: patients });
   } catch (error) {
     res.status(400).json({ status: "Error :", error: error });
   }
@@ -105,57 +106,139 @@ async function deleteRec(req, res) {
 //getDetails function used get patient data and patient contact data
 async function getDetails(req, res) {
   try {
-    const {
-      query,
-      session: { id },
-    } = req;
-    const payload = query;
+    const { body } = req;
+    const payload = body;
 
+    const { id } = payload;
+
+    const condition = {};
+    if (id) {
+      if (Array.isArray(id)) {
+        condition["cond"] = {
+          $match: {
+            refid: { $in: id },
+          },
+        };
+      } else
+        condition["cond"] = {
+          $match: {
+            refid: id,
+          },
+        };
+    }
+    //get patient records from mongodb with patient params
     const patientParams = { rectype: config.patient.rectype };
     const contactParams = { rectype: config.contact.rectype };
     const officeParams = { rectype: config.organization.rectype };
-    const [patientInfo, contactInfo, officeInfo] = await Promise.all([
-      getRecord(patientParams),
-      getRecord(contactParams),
-      getRecord(officeParams),
-    ]);
 
-    const patientData = getPatientData(patientInfo, contactInfo, officeInfo);
+    //sloving all promises with Promise.all()
+    const [patients, contacts, offices, readings, alerts, record] =
+      await Promise.all([
+        getRecord(patientParams),
+        getRecord(contactParams),
+        getRecord(officeParams),
+        readingsRecord(condition),
+        alertsRecord(condition),
+        records(condition),
+      ]);
 
-    const validoffice = await checkingUserOffices(id);
-    let patientResult = [];
-    patientData.map((patient) => {
-      const { orgid } = patient;
-      if (validoffice.includes(orgid)) {
-        patientResult.push(patient);
-      }
-    });
+    const params = {
+      patients,
+      contacts,
+      offices,
+      readings,
+      alerts,
+      record,
+    };
 
-    if (!patientResult.length)
-      throw `user Don't have access to get patient details!`;
+    //call parsingPatientData function and get patient related data with patient params
+    let patientResult = parsingPatientData(params);
 
-    if (payload.status) {
-      patientResult = patientResult.filter(
-        (data) => data.status == payload.status
-      );
-    }
-    if (payload.id) {
-      patientResult = patientResult.find((data) => data.id == payload.id);
+    //checking patient data
+    if (!patientResult.length) throw `Patient details Not Found!`;
+
+    if (id) {
+      if(Array.isArray(id))
+        patientResult = patientResult.filter(({id:recid}) => id.some((id) => id === recid));
+      else
+        patientResult = patientResult.find((data) => data.id == id);
     }
 
     res.status(200).json({ status: "Success", results: patientResult });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ status: "Error :", error: error });
   }
 }
 
-//getPatientData used to get Patient form patient
-function getPatientData(patientInfo, contactInfo, officeInfo) {
+//getPatientData used to get Patient form patient record
+function parsingPatientData(params) {
   try {
-    const patientResult = patientInfo.map((patient) => {
+    const { patients, contacts, offices, readings, alerts, record } = params;
+
+    //mapping contacts and getting contact Data from contacts records
+    const contactObj = {};
+    contacts.map((rec) => {
+      const { refid, type, subtype } = rec;
+
+      if (!contactObj[refid]) contactObj[refid] = {};
+
+      contactObj[refid][type] = {
+        ...contactObj[refid][type],
+        [subtype]: rec[type],
+      };
+    });
+
+    //mapping offices and getting office names from organization records
+    const officeObj = {};
+    offices.map((rec) => {
+      const { id, name } = rec;
+      officeObj[id] = name;
+    });
+
+    //mapping readings and getting readings data from readings records
+    const readingObj = {};
+    readings.map((rec) => {
+      let { refid, type, value1, value2, timestamp } = rec;
+      if (!readingObj[refid]) readingObj[refid] = {};
+      if (value2 == undefined) value2 = "Null";
+      readingObj[refid][type] = {
+        value1,
+        value2,
+        timestamp,
+      };
+    });
+
+    //mapping alertObj and getting alerts data from alerts records
+    const alertObj = {};
+    alerts.map((rec) => {
+      const { refid, type, limitdiff, flag, timestamp, min, max, actualvalue } =
+        rec;
+      if (!alertObj[refid]) alertObj[refid] = {};
+
+      alertObj[refid][type] = {
+        limitdiff,
+        flag,
+        timestamp,
+        min,
+        max,
+        actualvalue,
+      };
+    });
+
+    //mapping recordObj and getting record data from records
+    const recordObj = {};
+    record.map((rec) => {
+      const { refid, type, data } = rec;
+      if (!recordObj[refid]) recordObj[refid] = {};
+
+      recordObj[refid][type] = { data };
+    });
+
+    //mapping patients and getting patient data from patient records
+    const patientResult = patients.map((rec) => {
       const {
         id,
-        title,
         firstname,
         lastname,
         dob,
@@ -165,67 +248,157 @@ function getPatientData(patientInfo, contactInfo, officeInfo) {
         status,
         createdBy,
         created,
-      } = patient;
-      const contactData = {};
-      contactInfo.map((contactObj) => {
-        const { refid, address, phone, email } = contactObj;
-        if (refid == id) {
-          if (address) contactData["address"] = address;
-          if (phone) contactData["phone"] = phone;
-          if (email) contactData["email"] = email;
-        }
-      });
-      const { email, phone, address } = contactData;
-      let officeName;
-      officeInfo.map((office) => {
-        const { id, name } = office;
-        if (orgid == id) {
-          officeName = name;
-        }
-      });
+        data: { devices },
+      } = rec;
 
+      const { email, phone, address } = contactObj[id] || {};
       const patientData = {
         id,
-        title,
         firstname,
         lastname,
         dob,
         age,
         gender,
         orgid,
-        officeName,
+        officeName: officeObj[orgid] || {},
         status,
         createdBy,
         created,
         email,
         phone,
         address,
+        devices,
+        reading: readingObj[id] || {},
+        alert: alertObj[id] || {},
+        record: recordObj[id] || {},
       };
 
       return patientData;
     });
     return patientResult;
   } catch (error) {
-    reject(error);
+    throw error;
   }
 }
 
-//validateOffices to validate offices
-async function validateOffices(req, res, next) {
-  try {
-    const {
-      body: { orgid },
-      session: { id },
-    } = req;
+//readingsRecord to get readings from aggregation function
+function readingsRecord(params) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { cond } = params;
+      const query = [
+        {
+          $group: {
+            _id: { refid: "$refid", type: "$type" },
+            timestamp: { $last: "$data.effectiveDateTime" },
+            data: { $last: "$data" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            refid: "$_id.refid",
+            type: "$_id.type",
+            timestamp: 1,
+            value1: {
+              $cond: {
+                if: { $eq: ["$_id.type", "bp"] },
+                then: {
+                  $arrayElemAt: ["$data.component.valueQuantity.value", 0],
+                },
+                else: "$data.valueQuantity.value",
+              },
+            },
+            value2: {
+              $arrayElemAt: ["$data.component.valueQuantity.value", 1],
+            },
+          },
+        },
+      ];
+      if (cond) {
+        query.push(cond);
+      }
+      const rectype = config.readings.rectype;
+      const readingsData = await aggr(rectype, query);
+      resolve(readingsData);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 
-    const offices = await utils.getUserOffices(id);
+//alertsRecord to get alerts from aggregation function
+function alertsRecord(params) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { cond } = params;
+      const query = [
+        {
+          $group: {
+            _id: { refid: "$refid", type: "$data.type" },
+            timestamp: { $last: "$data.timestamp" },
+            data: { $last: "$data" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            refid: "$_id.refid",
+            type: "$_id.type",
+            timestamp: 1,
+            limitdiff: "$data.limitDiff",
+            flag: "$data.flag",
+            min: "$data.otherdata.min",
+            max: "$data.otherdata.max",
+            actualvalue: "$data.otherdata.actualvalue",
+          },
+        },
+      ];
+      if (cond) {
+        query.push(cond);
+      }
+      const rectype = config.alerts.rectype;
+      const alertsData = await aggr(rectype, query);
+      resolve(alertsData);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 
-    if (!offices.includes(orgid))
-      throw "User Don't have access to create patient and Enter Valid Orgid!";
-    next();
-  } catch (error) {
-    res.status(400).json({ status: "Error :", error: error });
-  }
+//records to get record from aggregation function
+function records(params) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { cond } = params;
+      const query = [
+        {
+          $group: {
+            _id: { refid: "$refid", type: "$type" },
+            timestamp: { $last: "$created" },
+            data: { $last: "$data" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            refid: "$_id.refid",
+            type: "$_id.type",
+            timestamp: 1,
+            data: 1,
+          },
+        },
+      ];
+      if (cond) {
+        query.push(cond);
+      }
+      const rectype = config.records.rectype;
+      const recordsData = await aggr(rectype, query);
+      resolve(recordsData);
+    } catch (error) {
+      reject(error);
+    }
+  });
 }
 
 //update patient device details
@@ -246,18 +419,16 @@ async function updateDeviceDetails(req, res) {
     const patientParams = { rectype: config.patient.rectype, id };
     const patientData = await getRecord(patientParams);
     if (!patientData.length) throw `record not found!`;
-    const {data} = patientData[0];
+    const { data } = patientData[0];
     if (data) {
-      const {
-          devices: existingdevices
-      } = data;
+      const { devices: existingdevices } = data;
       if (existingdevices) {
-        const updatedDevices = {...existingdevices, ...devices};
+        const updatedDevices = { ...existingdevices, ...devices };
         payload.body.data.devices = updatedDevices;
       }
     }
-    const patientInfo = await updateRecord(payload);
-    res.status(200).json({ status: "Success", results: patientInfo });
+    const patients = await updateRecord(payload);
+    res.status(200).json({ status: "Success", results: patients });
   } catch (error) {
     console.log(error);
     res.status(400).json({ status: "Error :", error: error });
@@ -272,5 +443,4 @@ module.exports = {
   deleteRec,
   getDetails,
   updateDeviceDetails,
-  validateOffices,
 };

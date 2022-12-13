@@ -125,7 +125,7 @@ class Utils {
           max,
         };
       } else if(Number(value) > Number(max)) {
-        data.flag = config.alerts.flag.BelowMaximum;
+        data.flag = config.alerts.flag.AboveMaximum;
         data.limitDiff = value - max;
         data.otherdata = {
           actualvalue: value,
